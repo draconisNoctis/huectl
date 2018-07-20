@@ -1,0 +1,10 @@
+apps:
+    - script: bin/cli.js
+      name: huectl-server
+      watch: true
+      ignore_watch:
+        - src
+        - node_modules
+    - script: node_modules/.bin/tsc
+      args: --watch
+      name: huectl-typescript
