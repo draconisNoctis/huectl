@@ -17,9 +17,7 @@ export class BridgeController {
         const start = Date.now();
         while(true) {
             try {
-                const result = await api.createUser(host, description);
-    
-                return result;
+                return await api.createUser(host, description);
             } catch(e) {
                 if(Date.now() >= start + timeout || e.message !== 'link button not pressed') {
                     throw e;
