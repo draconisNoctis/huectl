@@ -218,9 +218,13 @@
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-5.2.0.tgz#aa762b69cb6fd4644d724a1cecd265caa42baf09"
 
-"@ngrx/router-store@5.2.0":
+"@ngrx/entity@5.2.0":
   version "5.2.0"
-  resolved "https://registry.yarnpkg.com/@ngrx/router-store/-/router-store-5.2.0.tgz#bf4b174ce19a36eba8211fc1ddeaf1e35ae74368"
+  resolved "https://registry.yarnpkg.com/@ngrx/entity/-/entity-5.2.0.tgz#68b90b3159bb46ec5b2d0de3fa0bf4e80e94972d"
+
+"@ngrx/router-store@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@ngrx/router-store/-/router-store-6.0.1.tgz#1c5c77b138eaed030b58f4203bf921e88cc51112"
 
 "@ngrx/schematics@5.2.0":
   version "5.2.0"
@@ -303,6 +307,12 @@
   resolved "https://registry.yarnpkg.com/@types/jasminewd2/-/jasminewd2-2.0.3.tgz#0d2886b0cbdae4c0eeba55e30792f584bf040a95"
   dependencies:
     "@types/jasmine" "*"
+
+"@types/node-hue-api@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@types/node-hue-api/-/node-hue-api-2.3.0.tgz#20d4d2746daa5e178b7c6221abae4859e6a0eb30"
+  dependencies:
+    "@types/node" "*"
 
 "@types/node@*":
   version "10.5.2"
@@ -4629,6 +4639,10 @@ ngrx-store-freeze@0.2.2:
   resolved "https://registry.yarnpkg.com/ngrx-store-freeze/-/ngrx-store-freeze-0.2.2.tgz#fbc1f50dbee8f5a63a34aa589abeb422d68f7fc5"
   dependencies:
     deep-freeze-strict "^1.1.1"
+
+ngrx-store-localstorage@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/ngrx-store-localstorage/-/ngrx-store-localstorage-5.0.1.tgz#83b1db02c7262dafd4866a3477fb7ac668aba3ba"
 
 no-case@^2.2.0:
   version "2.3.2"

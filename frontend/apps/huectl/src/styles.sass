@@ -1,2 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons')
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css'
+
+.hc-label-button
+    &.mat-fab
+        height: 156px
+        width: 156px
+        .mat-button-wrapper
+            display: flex
+            flex-direction: column
+            align-items: center
+            justify-content: center
+
+            .mat-icon
+                font-size: 60px
+                line-height: 1
+                height: 60px
+                width: 60px
+                margin-bottom: 10px
+
+.mat-icon.mat-xxl
+    font-size: 60px
+    width: 60px
+    height: 60px
+
+.full-height
+    height: 100%
+
+    &.mat-stepper-horizontal
+        display: flex
+        flex-direction: column
+
+        > *:nth-child(2)
+            flex-grow: 1
+            display: flex
+            flex-direction: column
+            justify-content: center

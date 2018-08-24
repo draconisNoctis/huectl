@@ -1,3 +1,11 @@
-<p>
-  dashboard works!
-</p>
+<mat-toolbar color="primary">
+    <h1>Hue Ctl</h1>
+    <span class="toolbar-spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
+    <mat-menu #menu="matMenu" xPosition="before">
+        <button mat-menu-item (click)="openSetup()">
+            <mat-icon>settings</mat-icon>
+            <span>Setup</span>
+        </button>
+    </mat-menu>
+</mat-toolbar>

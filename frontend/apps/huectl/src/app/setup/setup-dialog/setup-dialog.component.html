@@ -1,0 +1,41 @@
+<h2 matDialogTitle>Setup</h2>
+
+<div [formGroup]="form" matDialogContent fxLayout="column">
+    <mat-form-field appearance="outline">
+        <input matInput formControlName="bridge" placeholder="Bridge IP" *ngIf="!state.bridges" />
+
+        <mat-select matInput formControlName="bridge" placeholder="Bridge IP" *ngIf="state.bridges">
+            <mat-option *ngFor="let bridge of state.bridges" [value]="bridge.ipaddress">{{ bridge.ipaddress }}</mat-option>
+        </mat-select>
+
+        <button mat-icon-button matSuffix color="primary" (click)="searchForBridge()" *ngIf="!state.bridges">
+            <mat-icon *ngIf="!state.searching">search</mat-icon>
+            <mat-icon *ngIf="state.searching">hourglass_empty</mat-icon>
+        </button>
+
+        <button mat-icon-button matSuffix color="primary" (click)="resetBridgeSearch()" *ngIf="state.bridges"><mat-icon>clear</mat-icon></button>
+
+        <mat-error *ngIf="bridgeControl.invalid && bridgeControl.errors.required">Bridge IP is <strong>required</strong></mat-error>
+        <mat-error *ngIf="bridgeControl.invalid && bridgeControl.errors.pattern">Bridge IP is <strong>invalid</strong></mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <input matInput formControlName="account" placeholder="Account" />
+
+        <button mat-icon-button matSuffix color="primary" (click)="register()" [disabled]="accountControl.disabled">
+            <mat-icon *ngIf="!state.registering">person_add</mat-icon>
+            <mat-icon *ngIf="state.registering">hourglass_empty</mat-icon>
+        </button>
+
+        <mat-error *ngIf="accountControl.invalid && accountControl.errors.required">Account is <strong>required</strong></mat-error>
+        <mat-error *ngIf="accountControl.invalid && accountControl.errors.minlength">Account is <strong>too short</strong></mat-error>
+        <mat-error *ngIf="accountControl.invalid && accountControl.errors.maxlength">Account is <strong>too long</strong></mat-error>
+    </mat-form-field>
+
+    <pre>{{ state | json:2 }}</pre>
+</div>
+
+<mat-dialog-actions align="end">
+    <button mat-button *ngIf="!ref.disableClose" matDialogClose>Abort</button>
+    <button mat-button color="primary" [disabled]="form.invalid" (click)="save()">Save</button>
+</mat-dialog-actions>

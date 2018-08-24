@@ -18,6 +18,9 @@
     "paths": {
       "@huectl/common": [
         "libs/common/src/index.ts"
+      ],
+      "@huectl/api": [
+        "libs/api/src/index.ts"
       ]
     }
   },
