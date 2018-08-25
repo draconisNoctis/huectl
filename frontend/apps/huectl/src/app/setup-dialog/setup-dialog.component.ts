@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { ConfigData } from '../../+state/config.reducer';
+import { ConfigData } from '../+state/config.reducer';
 import { Register, ResetSearchBridges, SearchBridges } from '../+state/setup.actions';
-import { AppState } from '../../+state/app.state';
+import { AppState } from '../+state/app.state';
 import { Store } from '@ngrx/store';
 import { SetupData } from '../+state/setup.reducer';
 import { distinctUntilChanged, map, startWith } from 'rxjs/operators';

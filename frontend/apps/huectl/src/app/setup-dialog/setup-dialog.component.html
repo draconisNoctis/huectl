@@ -31,8 +31,6 @@
         <mat-error *ngIf="accountControl.invalid && accountControl.errors.minlength">Account is <strong>too short</strong></mat-error>
         <mat-error *ngIf="accountControl.invalid && accountControl.errors.maxlength">Account is <strong>too long</strong></mat-error>
     </mat-form-field>
-
-    <pre>{{ state | json:2 }}</pre>
 </div>
 
 <mat-dialog-actions align="end">

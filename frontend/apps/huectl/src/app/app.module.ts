@@ -18,7 +18,10 @@ import { ConfigEffects } from './+state/config.effects';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { RouterEffects } from './+state/router.effects';
-import { SetupModule } from './setup/setup.module';
+import { SetupDialogComponent } from './setup-dialog/setup-dialog.component';
+import { SetupEffects } from './+state/setup.effects';
+import { setupReducer } from './+state/setup.reducer';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const metaReducers : MetaReducer<any, any>[] = [];
 
@@ -29,7 +32,7 @@ if(!environment.production) {
 metaReducers.push(localStorageSync({ keys: [ 'config' ], rehydrate: true, storage: localStorage }));
 
 @NgModule({
-    declarations: [ AppComponent, DashboardComponent ],
+    declarations: [ AppComponent, DashboardComponent, SetupDialogComponent ],
     imports     : [
         BrowserModule,
         BrowserAnimationsModule,
@@ -40,7 +43,8 @@ metaReducers.push(localStorageSync({ keys: [ 'config' ], rehydrate: true, storag
         HttpClientModule,
         !environment.production ? StoreDevtoolsModule.instrument() : [],
         StoreModule.forRoot({
-                config: configReducer
+                config: configReducer,
+                setup: setupReducer
             }, {
                 initialState: { config: configInitialState },
                 metaReducers
@@ -49,11 +53,12 @@ metaReducers.push(localStorageSync({ keys: [ 'config' ], rehydrate: true, storag
         StoreRouterConnectingModule.forRoot({
             stateKey: 'router'
         }),
-        EffectsModule.forRoot([ ConfigEffects, RouterEffects ]),
-        SetupModule
+        EffectsModule.forRoot([ ConfigEffects, RouterEffects, SetupEffects ]),
+        ReactiveFormsModule
     ],
     providers   : [ ConfigEffects ],
-    bootstrap   : [ AppComponent ]
+    bootstrap   : [ AppComponent ],
+    entryComponents: [ SetupDialogComponent ]
 })
 export class AppModule {
 }

@@ -5,7 +5,7 @@ import { BridgesLoaded, OpenSetupDialog, Register, Registered, SetupActionTypes 
 import { map, switchMap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { SetupDialogComponent } from '../setup-dialog/setup-dialog.component';
-import { UpdateConfig } from '../../+state/config.actions';
+import { UpdateConfig } from './config.actions';
 import { NEVER, of } from 'rxjs';
 
 @Injectable()

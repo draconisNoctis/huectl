@@ -21,7 +21,7 @@ export interface SetupState {
 }
 
 
-declare module '../../+state/app.state' {
+declare module './app.state' {
     export interface AppState extends SetupState {
     
     }

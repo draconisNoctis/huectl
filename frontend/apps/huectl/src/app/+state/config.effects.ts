@@ -5,7 +5,7 @@ import { first, switchMap } from 'rxjs/operators';
 import { ConfigData, ConfigState } from './config.reducer';
 import { Store } from '@ngrx/store';
 import { combineLatest, NEVER, of } from 'rxjs';
-import { OpenSetupDialog } from '../setup/+state/setup.actions';
+import { OpenSetupDialog } from './setup.actions';
 
 @Injectable()
 export class ConfigEffects {
