@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import {
-    MatButtonModule, MatDialogModule,
+    MatButtonModule, MatCardModule, MatDialogModule,
     MatDividerModule,
-    MatFormFieldModule,
+    MatFormFieldModule, MatGridListModule,
     MatIconModule,
     MatInputModule,
     MatListModule, MatMenuModule,
@@ -26,7 +26,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         MatSelectModule,
         MatMenuModule,
         MatToolbarModule,
-        MatDialogModule
+        MatDialogModule,
+        MatGridListModule,
+        MatCardModule
     ],
     exports: [
         FlexLayoutModule,
@@ -41,7 +43,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         MatSelectModule,
         MatMenuModule,
         MatToolbarModule,
-        MatDialogModule
+        MatDialogModule,
+        MatGridListModule,
+        MatCardModule
     ]
 })
 export class MaterialModule {

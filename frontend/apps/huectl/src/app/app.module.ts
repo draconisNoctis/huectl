@@ -27,6 +27,9 @@ import { ApiModule } from '@huectl/api';
 import { ConfigurationDialogComponent } from './configuration-dialog/configuration-dialog.component';
 import { RoomsEffects } from './+state/rooms.effects';
 import { LoadingModule } from '@huectl/loading';
+import { GroupsComponent } from './groups/groups.component';
+import { HeaderComponent } from './header/header.component';
+import { HueIconsModule } from './hue-icons/hue-icons.module';
 
 const metaReducers : MetaReducer<any, any>[] = [];
 
@@ -37,8 +40,8 @@ if(!environment.production) {
 metaReducers.push(localStorageSync({ keys: [ 'api', 'config' ], rehydrate: true, storage: localStorage }));
 
 @NgModule({
-    declarations: [ AppComponent, DashboardComponent, SetupDialogComponent, ConfigurationDialogComponent ],
-    imports     : [
+    declarations   : [ AppComponent, DashboardComponent, SetupDialogComponent, ConfigurationDialogComponent, GroupsComponent, HeaderComponent ],
+    imports        : [
         BrowserModule,
         BrowserAnimationsModule,
         NxModule.forRoot(),
@@ -49,8 +52,8 @@ metaReducers.push(localStorageSync({ keys: [ 'api', 'config' ], rehydrate: true,
         !environment.production ? StoreDevtoolsModule.instrument() : [],
         StoreModule.forRoot({
             config: configReducer,
-            setup: setupReducer,
-            rooms: roomsReducer
+            setup : setupReducer,
+            rooms : roomsReducer
         }, {
             metaReducers
         }),
@@ -60,10 +63,11 @@ metaReducers.push(localStorageSync({ keys: [ 'api', 'config' ], rehydrate: true,
         EffectsModule.forRoot([ ConfigEffects, RouterEffects, SetupEffects, RoomsEffects ]),
         ReactiveFormsModule,
         ApiModule,
-        LoadingModule
+        LoadingModule,
+        HueIconsModule
     ],
-    providers   : [ ConfigEffects ],
-    bootstrap   : [ AppComponent ],
+    providers      : [ ConfigEffects ],
+    bootstrap      : [ AppComponent ],
     entryComponents: [ SetupDialogComponent, ConfigurationDialogComponent ]
 })
 export class AppModule {

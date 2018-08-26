@@ -1,0 +1,20 @@
+<hc-header></hc-header>
+
+<div class="m-content">
+    <div class="m-grid">
+        <div class="m-grid__item" *ngFor="let room of rooms | async">
+            <mat-card>
+                <mat-card-title class="flex">
+                    <span>{{ room.name }}</span>
+                    <span class="spacer"></span>
+                    <mat-icon [svgIcon]="room.class" color="primary"></mat-icon>
+                </mat-card-title>
+                <mat-card-content><pre>{{ room | json:2 }}</pre></mat-card-content>
+                <mat-card-actions align="end">
+                    <button mat-icon-button><mat-icon>power_settings_new</mat-icon></button>
+                    <button mat-icon-button><mat-icon>not_interested</mat-icon></button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</div>
