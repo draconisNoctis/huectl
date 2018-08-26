@@ -28,7 +28,3 @@ export function groupsReducer(state = initalState, action : GroupsActions) : Gro
 const { selectAll } = groupAdapter.getSelectors();
 
 export { selectAll as _selectAllGroups };
-
-// export const selectGroups = createFeatureSelector('groups');
-
-// export const selectAllGroups = createSelector(selectGroups, selectAll);

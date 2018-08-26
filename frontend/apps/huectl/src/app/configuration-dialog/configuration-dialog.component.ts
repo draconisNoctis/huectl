@@ -7,7 +7,8 @@ import { ILightGroup } from 'node-hue-api';
 import { MatDialogRef } from '@angular/material';
 import { SetupDialogComponent } from '../setup-dialog/setup-dialog.component';
 import { ConfigData } from '../+state/config.reducer';
-import { GetGroupsAction, selectAllGroups } from '@huectl/hue';
+import { GetGroupsAction, selectAllGroupsGroupedByType } from '@huectl/hue';
+import { Dictionary } from '@ngrx/entity';
 
 @Component({
     selector     : 'hc-configuration-dialog',
@@ -20,14 +21,14 @@ export class ConfigurationDialogComponent implements OnInit {
         room: new FormControl(null)
     });
     
-    rooms : Observable<ILightGroup[]>;
+    rooms : Observable<Dictionary<ILightGroup[]>>;
     
     constructor(protected readonly ref : MatDialogRef<SetupDialogComponent, ConfigData>,
                 protected readonly store : Store<AppState>) {
     }
     
     ngOnInit() {
-        this.rooms = this.store.select(selectAllGroups);
+        this.rooms = this.store.select(selectAllGroupsGroupedByType);
         this.store.dispatch(new GetGroupsAction());
         
         this.store.select('config').subscribe(config => {

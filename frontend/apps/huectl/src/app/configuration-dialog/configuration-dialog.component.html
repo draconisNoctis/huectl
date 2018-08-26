@@ -5,11 +5,11 @@
         <mat-select matInput formControlName="room" placeholder="Room">
             <mat-option [value]="null"><strong>None</strong></mat-option>
             <mat-divider></mat-divider>
-            <mat-option *ngFor="let room of rooms | async" [value]="room.id">{{ room.name }}</mat-option>
+            <mat-optgroup *ngFor="let entry of rooms | async | keyvalue" [label]="entry.key">
+                <mat-option *ngFor="let room of entry.value" [value]="room.id">{{ room.name }}</mat-option>
+            </mat-optgroup>
         </mat-select>
     </mat-form-field>
-
-    <pre>{{ rooms | async | json:2 }}</pre>
 </div>
 
 <mat-dialog-actions align="end">
