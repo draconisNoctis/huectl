@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { ApiUpdateAction, BridgeService } from '@huectl/api';
-import { BridgesLoaded, OpenSetupDialog, Register, Registered, SetupActionTypes } from './setup.actions';
-import { map, switchMap } from 'rxjs/operators';
+import { BridgesLoaded, OpenSetupDialog, Register, SetupActionTypes } from './setup.actions';
+import { switchMap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { SetupDialogComponent } from '../setup-dialog/setup-dialog.component';
-import { NEVER, of } from 'rxjs';
+import { concat, NEVER, of } from 'rxjs';
+import { DecreaseLoadingAction, IncreaseLoadingAction } from '@huectl/loading';
 
 @Injectable()
 export class SetupEffects {
     @Effect()
     searchBridges$ = this.actions$.ofType(SetupActionTypes.SearchBridges).pipe(
-        switchMap(() => this.bridgeService.search()),
-        map(result => new BridgesLoaded(result))
+        switchMap(() => concat(
+            of(new IncreaseLoadingAction()),
+            this.bridgeService.search().pipe(
+                switchMap(result => of(new DecreaseLoadingAction(), new BridgesLoaded(result)))
+            )
+        ))
     );
     
     @Effect()
@@ -29,10 +34,14 @@ export class SetupEffects {
     
     @Effect()
     register$ = this.actions$.ofType(SetupActionTypes.Register).pipe(
-        switchMap((action : Register) => this.bridgeService.register(action.payload)),
-        switchMap(account => of(
-            new Registered(account),
-            new ApiUpdateAction({ account })
+        switchMap((action : Register) => concat(
+            of(new IncreaseLoadingAction()),
+            this.bridgeService.register(action.payload).pipe(
+                switchMap(account => of(
+                    new DecreaseLoadingAction(),
+                    new ApiUpdateAction({ account })
+                ))
+            )
         ))
     );
 
