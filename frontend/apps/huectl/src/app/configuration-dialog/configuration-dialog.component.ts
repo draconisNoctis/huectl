@@ -30,6 +30,10 @@ export class ConfigurationDialogComponent implements OnInit {
     ngOnInit() {
         this.rooms = this.store.select(selectAllRooms);
         this.store.dispatch(new GetRoomsAction());
+        
+        this.store.select('config').subscribe(config => {
+            this.form.patchValue(config);
+        });
     }
     
     save() {

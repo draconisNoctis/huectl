@@ -8,8 +8,6 @@
             <mat-option *ngFor="let room of rooms | async" [value]="room.id">{{ room.name }}</mat-option>-->
         </mat-select>
     </mat-form-field>
-
-    <pre>{{ rooms | async | json:2 }}</pre>
 </div>
 
 <mat-dialog-actions align="end">
