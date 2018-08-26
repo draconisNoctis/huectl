@@ -3,7 +3,13 @@ import { AppState } from '../+state/app.state';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { ILightGroup } from 'node-hue-api';
-import { GetGroupsAction, GetLightsAction, selectAllGroupsWithLightsGroupedByType } from '@huectl/hue';
+import {
+    GetGroupsAction,
+    GetLightsAction,
+    GroupOffAction,
+    GroupOnAction,
+    selectAllGroupsWithLightsGroupedByType
+} from '@huectl/hue';
 
 @Component({
   selector: 'hc-rooms',
@@ -25,5 +31,13 @@ export class RoomsComponent implements OnInit {
         );
         this.store.dispatch(new GetGroupsAction());
         this.store.dispatch(new GetLightsAction());
+    }
+    
+    groupOn(group : string) {
+        this.store.dispatch(new GroupOnAction({ group }));
+    }
+    
+    groupOff(group : string) {
+        this.store.dispatch(new GroupOffAction({ group }));
     }
 }

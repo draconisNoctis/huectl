@@ -10,8 +10,8 @@
                     <mat-icon [svgIcon]="room.class" color="primary"></mat-icon>
                 </mat-card-title>
                 <mat-card-actions align="end">
-                    <button mat-icon-button><mat-icon>power_settings_new</mat-icon></button>
-                    <button mat-icon-button><mat-icon>not_interested</mat-icon></button>
+                    <button mat-icon-button (click)="groupOn(room.id);$event.stopPropagation();"><mat-icon>power_settings_new</mat-icon></button>
+                    <button mat-icon-button (click)="groupOff(room.id);$event.stopPropagation();"><mat-icon>not_interested</mat-icon></button>
                 </mat-card-actions>
             </mat-card>
         </div>
