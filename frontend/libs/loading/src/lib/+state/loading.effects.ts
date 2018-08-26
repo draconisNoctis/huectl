@@ -14,7 +14,7 @@ export class LoadingEffects {
     increase$ = this.actions$.ofType(LoadingActionTypes.INCREASE).pipe(
         switchMap(() => this.store$.select('loading').pipe(first())),
         switchMap((state : LoadingData) => {
-            if(state.count > 0 && !state.dialogId) {
+            if(state.count === 1) {
                 return of(null)
             }
             return NEVER;

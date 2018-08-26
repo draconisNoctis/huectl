@@ -8,7 +8,7 @@ export interface GroupsData extends EntityState<ILightGroup> {
 
 export const groupAdapter = createEntityAdapter<any>();
 
-export const initalState : GroupsData = groupAdapter.getInitialState({
+const initalState : GroupsData = groupAdapter.getInitialState({
     loading: null
 });
 

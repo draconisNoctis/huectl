@@ -3,7 +3,7 @@ import { AppState } from '../+state/app.state';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { ILightGroup } from 'node-hue-api';
-import { GetGroupsAction, selectAllGroupsGroupedByType } from '@huectl/hue';
+import { GetGroupsAction, GetLightsAction, selectAllGroupsWithLightsGroupedByType } from '@huectl/hue';
 
 @Component({
   selector: 'hc-groups',
@@ -20,9 +20,10 @@ export class RoomsComponent implements OnInit {
     
     ngOnInit() {
         this.rooms = this.store.pipe(
-            select(selectAllGroupsGroupedByType),
+            select(selectAllGroupsWithLightsGroupedByType),
             select('Room')
         );
         this.store.dispatch(new GetGroupsAction());
+        this.store.dispatch(new GetLightsAction());
     }
 }

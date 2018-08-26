@@ -6,8 +6,8 @@ import { Hue } from '../decorators/hue.decorator';
 export class LightsController {
     
     @Get('/')
-    list(@Hue() api : HueApi) {
-        return api.getLights();
+    async list(@Hue() api : HueApi) {
+        return (await api.getLights()).lights;
     }
     
     @Get('/:id')

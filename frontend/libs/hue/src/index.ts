@@ -7,3 +7,6 @@ export * from './lib/+state/groups.actions';
 export * from './lib/+state/groups.effects';
 export * from './lib/+state/groups.reducer';
 export * from './lib/+state/hue.reducer';
+export * from './lib/+state/lights.actions';
+export * from './lib/+state/lights.effects';
+export * from './lib/+state/lights.reducer';
