@@ -26,6 +26,7 @@ import { roomsReducer } from './+state/rooms.reducer';
 import { ApiModule } from '@huectl/api';
 import { ConfigurationDialogComponent } from './configuration-dialog/configuration-dialog.component';
 import { RoomsEffects } from './+state/rooms.effects';
+import { LoadingModule } from '@huectl/loading';
 
 const metaReducers : MetaReducer<any, any>[] = [];
 
@@ -58,7 +59,8 @@ metaReducers.push(localStorageSync({ keys: [ 'api', 'config' ], rehydrate: true,
         }),
         EffectsModule.forRoot([ ConfigEffects, RouterEffects, SetupEffects, RoomsEffects ]),
         ReactiveFormsModule,
-        ApiModule
+        ApiModule,
+        LoadingModule
     ],
     providers   : [ ConfigEffects ],
     bootstrap   : [ AppComponent ],

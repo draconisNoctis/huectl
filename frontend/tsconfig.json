@@ -21,6 +21,9 @@
       ],
       "@huectl/api": [
         "libs/api/src/index.ts"
+      ],
+      "@huectl/loading": [
+        "libs/loading/src/index.ts"
       ]
     }
   },

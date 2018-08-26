@@ -8,6 +8,7 @@ import { RoomsData } from './rooms.reducer';
 import { NEVER } from 'rxjs/internal/observable/never';
 import { GroupsService } from '@huectl/api';
 import { merge, of } from 'rxjs';
+import { DecreaseLoadingAction, IncreaseLoadingAction } from '@huectl/loading';
 
 @Injectable()
 export class RoomsEffects {
@@ -25,7 +26,16 @@ export class RoomsEffects {
             }
             return NEVER;
         }),
-        
+    );
+    
+    @Effect()
+    increaseLoading$ = this.actions$.ofType(RoomActionTypes.LOADING_ROOMS).pipe(
+        map(() => new IncreaseLoadingAction())
+    );
+    
+    @Effect()
+    decreaseLoading$ = this.actions$.ofType(RoomActionTypes.LOAD_ROOMS).pipe(
+        map(() => new DecreaseLoadingAction())
     );
     
     constructor(protected readonly actions$ : Actions,

@@ -195,6 +195,34 @@
           }
         }
       }
+    },
+    "loading": {
+      "root": "libs/loading",
+      "sourceRoot": "libs/loading/src",
+      "projectType": "library",
+      "prefix": "hc",
+      "architect": {
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/loading/src/test.ts",
+            "tsConfig": "libs/loading/tsconfig.spec.json",
+            "karmaConfig": "libs/loading/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/loading/tsconfig.lib.json",
+              "libs/loading/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {
