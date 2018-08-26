@@ -5,7 +5,7 @@ import { first, switchMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { combineLatest, NEVER, of } from 'rxjs';
 import { OpenSetupDialog } from './setup.actions';
-import { ApiData } from '@huectl/api';
+import { ApiData } from '@huectl/hue';
 import { AppState } from './app.state';
 import { ConfigActionTypes, OpenConfigDialog, UpdateConfig } from './config.actions';
 import { MatDialog } from '@angular/material';
@@ -19,7 +19,7 @@ export class ConfigEffects {
         switchMap(nav => {
             return combineLatest(
                 of(nav),
-                this.store$.select('api')
+                this.store$.select('hue', 'api')
             ).pipe(first())
         }),
         switchMap(([ nav, config ] : [ RouterNavigationAction, ApiData ]) => {

@@ -19,8 +19,8 @@
       "@huectl/common": [
         "libs/common/src/index.ts"
       ],
-      "@huectl/api": [
-        "libs/api/src/index.ts"
+      "@huectl/hue": [
+        "libs/hue/src/index.ts"
       ],
       "@huectl/loading": [
         "libs/loading/src/index.ts"

@@ -5,10 +5,6 @@ export interface ApiData {
     account?: string;
 }
 
-export interface ApiState {
-    api: ApiData;
-}
-
 export const initialState : ApiData = {};
 
 export function apiReducer(state = initialState, action : ApiActions) {

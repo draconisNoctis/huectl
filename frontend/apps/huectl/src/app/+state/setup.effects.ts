@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { ApiUpdateAction, BridgeService } from '@huectl/api';
+import { ApiUpdateAction, BridgeService } from '@huectl/hue';
 import { BridgesLoaded, OpenSetupDialog, Register, SetupActionTypes } from './setup.actions';
 import { switchMap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';

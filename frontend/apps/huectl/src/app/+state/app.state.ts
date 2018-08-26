@@ -1,7 +1,6 @@
-import { RoomsState } from './rooms.reducer';
-import { ApiState } from '@huectl/api';
+import { HueState } from '@huectl/hue';
 import { ConfigState } from './config.reducer';
 import { SetupState } from './setup.reducer';
 
-export interface AppState extends ApiState, RoomsState, ConfigState, SetupState {
+export interface AppState extends HueState, ConfigState, SetupState {
 }

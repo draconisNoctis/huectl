@@ -168,26 +168,26 @@
         }
       }
     },
-    "api": {
-      "root": "libs/api",
-      "sourceRoot": "libs/api/src",
+    "hue": {
+      "root": "libs/hue",
+      "sourceRoot": "libs/hue/src",
       "projectType": "library",
       "prefix": "hc",
       "architect": {
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "libs/api/src/test.ts",
-            "tsConfig": "libs/api/tsconfig.spec.json",
-            "karmaConfig": "libs/api/karma.conf.js"
+            "main": "libs/hue/src/test.ts",
+            "tsConfig": "libs/hue/tsconfig.spec.json",
+            "karmaConfig": "libs/hue/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/api/tsconfig.lib.json",
-              "libs/api/tsconfig.spec.json"
+              "libs/hue/tsconfig.lib.json",
+              "libs/hue/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

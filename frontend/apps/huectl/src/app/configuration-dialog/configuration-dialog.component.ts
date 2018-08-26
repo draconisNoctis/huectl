@@ -2,13 +2,12 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AppState } from '../+state/app.state';
 import { Store } from '@ngrx/store';
-import { GetRoomsAction } from '../+state/rooms.actions';
 import { Observable } from 'rxjs/Observable';
-import { selectAllRooms } from '../+state/rooms.reducer';
 import { ILightGroup } from 'node-hue-api';
 import { MatDialogRef } from '@angular/material';
 import { SetupDialogComponent } from '../setup-dialog/setup-dialog.component';
 import { ConfigData } from '../+state/config.reducer';
+import { GetGroupsAction, selectAllGroups } from '@huectl/hue';
 
 @Component({
     selector     : 'hc-configuration-dialog',
@@ -28,8 +27,8 @@ export class ConfigurationDialogComponent implements OnInit {
     }
     
     ngOnInit() {
-        this.rooms = this.store.select(selectAllRooms);
-        this.store.dispatch(new GetRoomsAction());
+        this.rooms = this.store.select(selectAllGroups);
+        this.store.dispatch(new GetGroupsAction());
         
         this.store.select('config').subscribe(config => {
             this.form.patchValue(config);

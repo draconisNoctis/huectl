@@ -22,10 +22,8 @@ import { SetupDialogComponent } from './setup-dialog/setup-dialog.component';
 import { SetupEffects } from './+state/setup.effects';
 import { setupReducer } from './+state/setup.reducer';
 import { ReactiveFormsModule } from '@angular/forms';
-import { roomsReducer } from './+state/rooms.reducer';
-import { ApiModule } from '@huectl/api';
+import { HueModule } from '@huectl/hue';
 import { ConfigurationDialogComponent } from './configuration-dialog/configuration-dialog.component';
-import { RoomsEffects } from './+state/rooms.effects';
 import { LoadingModule } from '@huectl/loading';
 import { GroupsComponent } from './groups/groups.component';
 import { HeaderComponent } from './header/header.component';
@@ -37,7 +35,10 @@ if(!environment.production) {
     metaReducers.push(storeFreeze);
 }
 
-metaReducers.push(localStorageSync({ keys: [ 'api', 'config' ], rehydrate: true, storage: localStorage }));
+metaReducers.push(localStorageSync({ keys: [
+    'config',
+    { hue: [ 'api' ] }
+], rehydrate: true, storage: localStorage }));
 
 @NgModule({
     declarations   : [ AppComponent, DashboardComponent, SetupDialogComponent, ConfigurationDialogComponent, GroupsComponent, HeaderComponent ],
@@ -52,17 +53,16 @@ metaReducers.push(localStorageSync({ keys: [ 'api', 'config' ], rehydrate: true,
         !environment.production ? StoreDevtoolsModule.instrument() : [],
         StoreModule.forRoot({
             config: configReducer,
-            setup : setupReducer,
-            rooms : roomsReducer
+            setup : setupReducer
         }, {
             metaReducers
         }),
         StoreRouterConnectingModule.forRoot({
             stateKey: 'router'
         }),
-        EffectsModule.forRoot([ ConfigEffects, RouterEffects, SetupEffects, RoomsEffects ]),
+        EffectsModule.forRoot([ ConfigEffects, RouterEffects, SetupEffects ]),
         ReactiveFormsModule,
-        ApiModule,
+        HueModule,
         LoadingModule,
         HueIconsModule
     ],

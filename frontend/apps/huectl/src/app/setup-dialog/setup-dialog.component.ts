@@ -7,6 +7,7 @@ import { AppState } from '../+state/app.state';
 import { Store } from '@ngrx/store';
 import { SetupData } from '../+state/setup.reducer';
 import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
+import { selectHueApi } from '@huectl/hue';
 
 @Component({
     selector     : 'hc-setup-dialog',
@@ -60,7 +61,7 @@ export class SetupDialogComponent implements OnInit {
             this.state = state;
         });
     
-        this.store.select('api').subscribe(config => {
+        this.store.select(selectHueApi).subscribe(config => {
             if(config.bridge) {
                 this.bridgeControl.patchValue(config.bridge);
             }
