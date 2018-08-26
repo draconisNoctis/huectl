@@ -25,9 +25,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HueModule } from '@huectl/hue';
 import { ConfigurationDialogComponent } from './configuration-dialog/configuration-dialog.component';
 import { LoadingModule } from '@huectl/loading';
-import { GroupsComponent } from './groups/groups.component';
 import { HeaderComponent } from './header/header.component';
 import { HueIconsModule } from './hue-icons/hue-icons.module';
+import { RoomsComponent } from './rooms/rooms.component';
 
 const metaReducers : MetaReducer<any, any>[] = [];
 
@@ -41,7 +41,7 @@ metaReducers.push(localStorageSync({ keys: [
 ], rehydrate: true, storage: localStorage }));
 
 @NgModule({
-    declarations   : [ AppComponent, DashboardComponent, SetupDialogComponent, ConfigurationDialogComponent, GroupsComponent, HeaderComponent ],
+    declarations   : [ AppComponent, DashboardComponent, SetupDialogComponent, ConfigurationDialogComponent, RoomsComponent, HeaderComponent ],
     imports        : [
         BrowserModule,
         BrowserAnimationsModule,
