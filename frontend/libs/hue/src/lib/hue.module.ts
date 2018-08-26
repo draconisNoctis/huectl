@@ -6,15 +6,19 @@ import { EffectsModule } from '@ngrx/effects';
 import { GroupsEffects } from './+state/groups.effects';
 import { lightsReducer } from './+state/lights.reducer';
 import { LightsEffects } from './+state/lights.effects';
+import { StateToColorPipe } from './state-to-color.pipe';
 
 @NgModule({
-    imports: [
+    imports     : [
         StoreModule.forFeature('hue', {
-            api: apiReducer,
+            api   : apiReducer,
             groups: groupsReducer,
             lights: lightsReducer
         }),
         EffectsModule.forFeature([ GroupsEffects, LightsEffects ])
-    ]
+    ],
+    declarations: [ StateToColorPipe ],
+    exports     : [ StateToColorPipe ]
 })
-export class HueModule {}
+export class HueModule {
+}

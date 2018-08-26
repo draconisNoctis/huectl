@@ -6,7 +6,7 @@ import { ILightGroup } from 'node-hue-api';
 import { GetGroupsAction, GetLightsAction, selectAllGroupsWithLightsGroupedByType } from '@huectl/hue';
 
 @Component({
-  selector: 'hc-groups',
+  selector: 'hc-rooms',
   templateUrl: './rooms.component.html',
   styleUrls: ['./rooms.component.sass'],
   encapsulation: ViewEncapsulation.None
