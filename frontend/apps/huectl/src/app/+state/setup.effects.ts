@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { BridgeService } from '@huectl/api';
+import { ApiUpdateAction, BridgeService } from '@huectl/api';
 import { BridgesLoaded, OpenSetupDialog, Register, Registered, SetupActionTypes } from './setup.actions';
 import { map, switchMap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { SetupDialogComponent } from '../setup-dialog/setup-dialog.component';
-import { UpdateConfig } from './config.actions';
 import { NEVER, of } from 'rxjs';
 
 @Injectable()
@@ -24,7 +23,7 @@ export class SetupEffects {
             return dialog.afterClosed();
         }),
         switchMap(result => {
-            return result ? of(new UpdateConfig(result)) : NEVER;
+            return result ? of(new ApiUpdateAction(result)) : NEVER;
         })
     );
     
@@ -33,7 +32,7 @@ export class SetupEffects {
         switchMap((action : Register) => this.bridgeService.register(action.payload)),
         switchMap(account => of(
             new Registered(account),
-            new UpdateConfig({ account })
+            new ApiUpdateAction({ account })
         ))
     );
 

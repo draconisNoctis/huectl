@@ -13,7 +13,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { storeFreeze } from 'ngrx-store-freeze';
-import { configReducer, initialState as configInitialState } from './+state/config.reducer';
+import { configReducer } from './+state/config.reducer';
 import { ConfigEffects } from './+state/config.effects';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
@@ -22,6 +22,10 @@ import { SetupDialogComponent } from './setup-dialog/setup-dialog.component';
 import { SetupEffects } from './+state/setup.effects';
 import { setupReducer } from './+state/setup.reducer';
 import { ReactiveFormsModule } from '@angular/forms';
+import { roomsReducer } from './+state/rooms.reducer';
+import { ApiModule } from '@huectl/api';
+import { ConfigurationDialogComponent } from './configuration-dialog/configuration-dialog.component';
+import { RoomsEffects } from './+state/rooms.effects';
 
 const metaReducers : MetaReducer<any, any>[] = [];
 
@@ -29,10 +33,10 @@ if(!environment.production) {
     metaReducers.push(storeFreeze);
 }
 
-metaReducers.push(localStorageSync({ keys: [ 'config' ], rehydrate: true, storage: localStorage }));
+metaReducers.push(localStorageSync({ keys: [ 'api', 'config' ], rehydrate: true, storage: localStorage }));
 
 @NgModule({
-    declarations: [ AppComponent, DashboardComponent, SetupDialogComponent ],
+    declarations: [ AppComponent, DashboardComponent, SetupDialogComponent, ConfigurationDialogComponent ],
     imports     : [
         BrowserModule,
         BrowserAnimationsModule,
@@ -43,22 +47,22 @@ metaReducers.push(localStorageSync({ keys: [ 'config' ], rehydrate: true, storag
         HttpClientModule,
         !environment.production ? StoreDevtoolsModule.instrument() : [],
         StoreModule.forRoot({
-                config: configReducer,
-                setup: setupReducer
-            }, {
-                initialState: { config: configInitialState },
-                metaReducers
-            }
-        ),
+            config: configReducer,
+            setup: setupReducer,
+            rooms: roomsReducer
+        }, {
+            metaReducers
+        }),
         StoreRouterConnectingModule.forRoot({
             stateKey: 'router'
         }),
-        EffectsModule.forRoot([ ConfigEffects, RouterEffects, SetupEffects ]),
-        ReactiveFormsModule
+        EffectsModule.forRoot([ ConfigEffects, RouterEffects, SetupEffects, RoomsEffects ]),
+        ReactiveFormsModule,
+        ApiModule
     ],
     providers   : [ ConfigEffects ],
     bootstrap   : [ AppComponent ],
-    entryComponents: [ SetupDialogComponent ]
+    entryComponents: [ SetupDialogComponent, ConfigurationDialogComponent ]
 })
 export class AppModule {
 }

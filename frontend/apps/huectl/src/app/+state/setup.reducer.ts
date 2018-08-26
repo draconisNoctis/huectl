@@ -1,30 +1,14 @@
 import { SetupActions, SetupActionTypes } from './setup.actions';
 import { IUpnpSearchResultItem } from 'node-hue-api';
 
-/**
- * Interface for the 'Setup' data used in
- *  - SetupState, and
- *  - setupReducer
- */
 export interface SetupData {
     searching?: boolean;
     bridges?: IUpnpSearchResultItem[];
     registering?: boolean;
 }
 
-/**
- * Interface to the part of the Store containing SetupState
- * and other information related to SetupData.
- */
 export interface SetupState {
     readonly setup: SetupData;
-}
-
-
-declare module './app.state' {
-    export interface AppState extends SetupState {
-    
-    }
 }
 
 export const initialState: SetupData = {

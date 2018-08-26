@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { StoreModule } from '@ngrx/store';
+import { apiReducer } from './+state/api.reducer';
+
 @NgModule({
-    imports: [CommonModule]
+    imports: [
+        StoreModule.forFeature('api', apiReducer)
+    ]
 })
 export class ApiModule {}

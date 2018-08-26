@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppState } from '../+state/app.state';
 import { Store } from '@ngrx/store';
 import { OpenSetupDialog } from '../+state/setup.actions';
+import { OpenConfigDialog } from '../+state/config.actions';
 
 @Component({
     selector   : 'hc-dashboard',
@@ -18,5 +19,9 @@ export class DashboardComponent implements OnInit {
     
     openSetup() {
         this.store.dispatch(new OpenSetupDialog());
+    }
+    
+    openConfig() {
+        this.store.dispatch(new OpenConfigDialog());
     }
 }

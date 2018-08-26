@@ -1,4 +1,4 @@
-import { Body, Get, JsonController, Param, Put } from '@neoskop/nem';
+import { Body, Get, JsonController, Param, Put, QueryParam } from '@neoskop/nem';
 import { HueApi, lightState } from 'node-hue-api';
 import { Hue } from '../decorators/hue.decorator';
 
@@ -6,8 +6,15 @@ import { Hue } from '../decorators/hue.decorator';
 export class GroupsController {
     
     @Get('/')
-    list(@Hue() api : HueApi) {
-        return api.getGroups();
+    async list(@Hue() api : HueApi,
+               @QueryParam('type') type?: string) {
+        let groups = await api.getGroups();
+        
+        if(type) {
+            groups = groups.filter(group => group.type === type);
+        }
+        
+        return groups;
     }
     
     @Get('/:id')

@@ -26,12 +26,9 @@ export class SetupDialogComponent implements OnInit {
         Validators.maxLength(50)
     ]);
     
-    readonly roomControl = new FormControl();
-    
     readonly form = new FormGroup({
         bridge: this.bridgeControl,
-        account: this.accountControl,
-        room: this.roomControl
+        account: this.accountControl
     });
     
     state : SetupData;
@@ -50,13 +47,7 @@ export class SetupDialogComponent implements OnInit {
             distinctUntilChanged(),
             map(status => status === 'INVALID')
         );
-
-        const accountInvalid = this.accountControl.statusChanges.pipe(
-            startWith('INVALID'),
-            distinctUntilChanged(),
-            map(status => status === 'INVALID')
-        );
-
+        
         bridgeInvalid.subscribe(invalid => {
             if(invalid) {
                 this.accountControl.disable();
@@ -65,19 +56,11 @@ export class SetupDialogComponent implements OnInit {
             }
         });
 
-        accountInvalid.subscribe(invalid => {
-            if(invalid) {
-                this.roomControl.disable();
-            } else {
-                this.roomControl.enable();
-            }
-        });
-
         this.store.select('setup').subscribe(state => {
             this.state = state;
         });
     
-        this.store.select('config').subscribe(config => {
+        this.store.select('api').subscribe(config => {
             if(config.bridge) {
                 this.bridgeControl.patchValue(config.bridge);
             }

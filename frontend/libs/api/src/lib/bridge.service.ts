@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IUpnpSearchResultItem } from 'node-hue-api';
-import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +17,8 @@ export class BridgeService {
         });
     }
     
-    register(host : string) {
-        return this.http.get<string>(`/api/bridge/${host}/register`);
+    register(_host : string) {
+        return of("wwDrY4zCLgpzB1EZKoPEnCWLohOojH3CSV85QGIK")
+        // return this.http.get<string>(`/api/bridge/${host}/register`);
     }
 }
