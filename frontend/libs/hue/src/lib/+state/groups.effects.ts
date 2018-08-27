@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { first, map, switchMap } from 'rxjs/operators';
-import { NEVER, of } from 'rxjs';
+import { delay, filter, first, map, switchMap, tap } from 'rxjs/operators';
+import { NEVER, of, defer, combineLatest } from 'rxjs';
 import { DecreaseLoadingAction, IncreaseLoadingAction } from '@huectl/loading';
 import {
     GroupActionTypes,
     GroupOffAction,
     GroupOnAction,
-    LoadGroupsAction,
+    LoadGroupsAction, RefreshGroupsAction,
     StoreGroupsAction,
 } from './groups.actions';
 import { GroupsData } from './groups.reducer';
@@ -30,18 +30,30 @@ export class GroupsEffects {
     );
     
     @Effect()
-    loadGroups$ = this.actions$.ofType(GroupActionTypes.LOAD).pipe(
-        switchMap(() => this.groupsService.getGroups()),
-        map(groups => new StoreGroupsAction({ groups }))
+    refreshGroups$ = this.actions$.pipe(
+        ofType(GroupActionTypes.REFRESH),
+        delay(5000),
+        switchMap(() => of(new RefreshGroupsAction(), new LoadGroupsAction({ silent: true })))
     );
     
     @Effect()
-    increaseLoading$ = this.actions$.ofType(GroupActionTypes.LOAD).pipe(
+    loadGroups$ = this.actions$.pipe(
+        ofType(GroupActionTypes.LOAD),
+        switchMap((action : LoadGroupsAction) => combineLatest(of(action), this.groupsService.getGroups())),
+        map(([ action, groups ]) => new StoreGroupsAction({ ...action.payload, groups }))
+    );
+    
+    @Effect()
+    increaseLoading$ = this.actions$.pipe(
+        ofType(GroupActionTypes.LOAD),
+        filter((action : LoadGroupsAction) => !action.payload.silent),
         map(() => new IncreaseLoadingAction())
     );
     
     @Effect()
-    decreaseLoading$ = this.actions$.ofType(GroupActionTypes.STORE).pipe(
+    decreaseLoading$ = this.actions$.pipe(
+        ofType(GroupActionTypes.STORE),
+        filter((action : StoreGroupsAction) => !action.payload.silent),
         map(() => new DecreaseLoadingAction())
     );
     
@@ -58,6 +70,11 @@ export class GroupsEffects {
         switchMap((action : GroupOffAction) => this.groupsService.off(action.payload.group)),
         switchMap(() => of(new LoadGroupsAction(), new LoadLightsAction()))
     );
+    
+    @Effect()
+    init$ = defer(() => {
+        return of(new RefreshGroupsAction());
+    });
     
     constructor(protected readonly actions$ : Actions,
                 protected readonly store$ : Store<HueState>,
