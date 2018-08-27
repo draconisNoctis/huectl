@@ -1,4 +1,9 @@
-<hc-header></hc-header>
+<hc-header>
+    <ng-template #title>
+        <button mat-icon-button [routerLink]="[ '..' ]"><mat-icon>arrow_back_ios</mat-icon></button>
+        <h1 *ngIf="room | async as _room">{{ _room.name }}</h1>
+    </ng-template>
+</hc-header>
 
 <div class="m-content" *ngIf="room | async as _room">
     <div class="m-grid">
