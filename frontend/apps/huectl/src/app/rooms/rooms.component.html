@@ -3,7 +3,7 @@
 <div class="m-content">
     <div class="m-grid">
         <div class="m-grid__item" *ngFor="let room of rooms | async">
-            <mat-card>
+            <mat-card [routerLink]="[ '/rooms', room.id ]">
                 <mat-card-title class="flex">
                     <span>{{ room.name }}</span>
                     <span class="spacer"></span>

@@ -1,0 +1,17 @@
+<hc-header></hc-header>
+
+<div class="m-content" *ngIf="room | async as _room">
+    <div class="m-grid">
+        <div class="m-grid__item" *ngFor="let light of _room.$lights">
+            <mat-card>
+                <mat-card-title class="flex">
+                    <span>{{ light?.name }}</span>
+                </mat-card-title>
+                <mat-card-actions align="end">
+                    <button mat-icon-button (click)="lightOn(light.id);$event.stopPropagation();"><mat-icon>power_settings_new</mat-icon></button>
+                    <button mat-icon-button (click)="lightOff(light.id);$event.stopPropagation();"><mat-icon>not_interested</mat-icon></button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</div>

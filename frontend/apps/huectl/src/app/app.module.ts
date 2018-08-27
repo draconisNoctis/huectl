@@ -28,6 +28,7 @@ import { LoadingModule } from '@huectl/loading';
 import { HeaderComponent } from './header/header.component';
 import { HueIconsModule } from './hue-icons/hue-icons.module';
 import { RoomsComponent } from './rooms/rooms.component';
+import { RoomLightsComponent } from './room-lights/room-lights.component';
 
 const metaReducers : MetaReducer<any, any>[] = [];
 
@@ -41,7 +42,7 @@ metaReducers.push(localStorageSync({ keys: [
 ], rehydrate: true, storage: localStorage }));
 
 @NgModule({
-    declarations   : [ AppComponent, DashboardComponent, SetupDialogComponent, ConfigurationDialogComponent, RoomsComponent, HeaderComponent ],
+    declarations   : [ AppComponent, DashboardComponent, SetupDialogComponent, ConfigurationDialogComponent, RoomsComponent, HeaderComponent, RoomLightsComponent ],
     imports        : [
         BrowserModule,
         BrowserAnimationsModule,
