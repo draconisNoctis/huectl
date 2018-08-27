@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { filter, first, map, switchMap, tap } from 'rxjs/operators';
-import { merge, of, NEVER } from 'rxjs';
+import { first, map, switchMap } from 'rxjs/operators';
+import { NEVER, of } from 'rxjs';
 import { DecreaseLoadingAction, IncreaseLoadingAction } from '@huectl/loading';
 import {
     GroupActionTypes,
     GroupOffAction,
     GroupOnAction,
     LoadGroupsAction,
-    LoadingGroupsAction,
+    StoreGroupsAction,
 } from './groups.actions';
 import { GroupsData } from './groups.reducer';
 import { HueState, selectHueGroups } from './hue.reducer';
 import { GroupsService } from '../groups.service';
+import { LoadLightsAction } from './lights.actions';
 
 @Injectable()
 export class GroupsEffects {
@@ -22,24 +23,25 @@ export class GroupsEffects {
         switchMap(() => this.store$.select(selectHueGroups).pipe(first())),
         switchMap((rooms : GroupsData) => {
             if(!rooms.loading && 0 === rooms.ids.length) {
-                return merge(
-                    of(new LoadingGroupsAction()),
-                    this.groupsService.getGroups().pipe(
-                        map(groups => new LoadGroupsAction({ groups }))
-                    )
-                );
+                return of(new LoadGroupsAction());
             }
             return NEVER;
         }),
     );
     
     @Effect()
-    increaseLoading$ = this.actions$.ofType(GroupActionTypes.LOADING).pipe(
+    loadGroups$ = this.actions$.ofType(GroupActionTypes.LOAD).pipe(
+        switchMap(() => this.groupsService.getGroups()),
+        map(groups => new StoreGroupsAction({ groups }))
+    );
+    
+    @Effect()
+    increaseLoading$ = this.actions$.ofType(GroupActionTypes.LOAD).pipe(
         map(() => new IncreaseLoadingAction())
     );
     
     @Effect()
-    decreaseLoading$ = this.actions$.ofType(GroupActionTypes.LOAD).pipe(
+    decreaseLoading$ = this.actions$.ofType(GroupActionTypes.STORE).pipe(
         map(() => new DecreaseLoadingAction())
     );
     
@@ -47,14 +49,14 @@ export class GroupsEffects {
     groupOn$ = this.actions$.pipe(
         ofType(GroupActionTypes.ON),
         switchMap((action : GroupOnAction) => this.groupsService.on(action.payload.group)),
-        filter(() => false)
+        switchMap(() => of(new LoadGroupsAction(), new LoadLightsAction()))
     );
     
     @Effect()
     groupOff$ = this.actions$.pipe(
         ofType(GroupActionTypes.OFF),
         switchMap((action : GroupOffAction) => this.groupsService.off(action.payload.group)),
-        filter(() => false)
+        switchMap(() => of(new LoadGroupsAction(), new LoadLightsAction()))
     );
     
     constructor(protected readonly actions$ : Actions,

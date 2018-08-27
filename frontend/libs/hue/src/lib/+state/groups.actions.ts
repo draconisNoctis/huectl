@@ -3,8 +3,8 @@ import { Action } from '@ngrx/store';
 
 export enum GroupActionTypes {
     GET = '[Group] Get Groups',
-    LOADING = '[Group] Loading Groups',
-    LOAD = '[Group] Load Groups',
+    LOAD = '[Group] Loadi Groups',
+    STORE = '[Group] Store Groups',
     ON = '[Group] On',
     OFF = '[Group] Off'
 }
@@ -13,12 +13,12 @@ export class GetGroupsAction implements Action {
     readonly type = GroupActionTypes.GET;
 }
 
-export class LoadingGroupsAction implements Action {
-    readonly type = GroupActionTypes.LOADING;
-}
-
 export class LoadGroupsAction implements Action {
     readonly type = GroupActionTypes.LOAD;
+}
+
+export class StoreGroupsAction implements Action {
+    readonly type = GroupActionTypes.STORE;
     
     constructor(public readonly payload : { groups : ILightGroup[] }) {}
 }
@@ -35,4 +35,4 @@ export class GroupOffAction implements Action {
     constructor(public readonly payload : { group : string }) {}
 }
 
-export type GroupsActions = GetGroupsAction | LoadingGroupsAction | LoadGroupsAction | GroupOnAction | GroupOffAction;
+export type GroupsActions = GetGroupsAction | LoadGroupsAction | StoreGroupsAction | GroupOnAction | GroupOffAction;

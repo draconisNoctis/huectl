@@ -14,10 +14,10 @@ const initalState : LightsData = lightAdapter.getInitialState({
 
 export function lightsReducer(state = initalState, action : LightsActions) : LightsData {
     switch(action.type) {
-        case LightsActionTypes.LOADING: {
+        case LightsActionTypes.LOAD: {
             return { ...state, loading: true };
         }
-        case LightsActionTypes.LOAD: {
+        case LightsActionTypes.STORE: {
             return lightAdapter.addAll(action.payload.lights, { ...state, loading: false });
         }
     }

@@ -14,10 +14,10 @@ const initalState : GroupsData = groupAdapter.getInitialState({
 
 export function groupsReducer(state = initalState, action : GroupsActions) : GroupsData {
     switch(action.type) {
-        case GroupActionTypes.LOADING: {
+        case GroupActionTypes.LOAD: {
             return { ...state, loading: true };
         }
-        case GroupActionTypes.LOAD: {
+        case GroupActionTypes.STORE: {
             return groupAdapter.addAll(action.payload.groups, { ...state, loading: false });
         }
     }
