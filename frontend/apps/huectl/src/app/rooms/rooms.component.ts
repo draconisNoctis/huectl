@@ -10,6 +10,7 @@ import {
     GroupOnAction,
     selectAllGroupsWithLightsGroupedByType
 } from '@huectl/hue';
+import { MatSlideToggleChange } from '@angular/material';
 
 @Component({
   selector: 'hc-rooms',
@@ -33,11 +34,11 @@ export class RoomsComponent implements OnInit {
         this.store.dispatch(new GetLightsAction());
     }
     
-    groupOn(group : string) {
-        this.store.dispatch(new GroupOnAction({ group }));
-    }
-    
-    groupOff(group : string) {
-        this.store.dispatch(new GroupOffAction({ group }));
+    toggle(event : MatSlideToggleChange, group : ILightGroup) {
+        if(event.checked) {
+            this.store.dispatch(new GroupOnAction({ group: group.id }));
+        } else {
+            this.store.dispatch(new GroupOffAction({ group: group.id }));
+        }
     }
 }

@@ -7,7 +7,7 @@ import {
     MatInputModule,
     MatListModule, MatMenuModule,
     MatProgressSpinnerModule,
-    MatSelectModule,
+    MatSelectModule, MatSlideToggleModule,
     MatStepperModule, MatToolbarModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -28,7 +28,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         MatToolbarModule,
         MatDialogModule,
         MatGridListModule,
-        MatCardModule
+        MatCardModule,
+        MatSlideToggleModule
     ],
     exports: [
         FlexLayoutModule,
@@ -45,7 +46,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         MatToolbarModule,
         MatDialogModule,
         MatGridListModule,
-        MatCardModule
+        MatCardModule,
+        MatSlideToggleModule
     ]
 })
 export class MaterialModule {

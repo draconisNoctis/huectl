@@ -5,14 +5,14 @@
         <div class="m-grid__item" *ngFor="let room of rooms | async">
             <mat-card [routerLink]="[ '/rooms', room.id ]">
                 <mat-card-title class="flex">
+                    <mat-icon [svgIcon]="room.class" color="primary"></mat-icon>
                     <span>{{ room.name }}</span>
                     <span class="spacer"></span>
-                    <mat-icon [svgIcon]="room.class" color="primary"></mat-icon>
+                    <mat-slide-toggle color="primary"
+                                      [checked]="room?.state?.any_on"
+                                      (click)="$event.stopPropagation()"
+                                      (change)="toggle($event, room)"></mat-slide-toggle>
                 </mat-card-title>
-                <mat-card-actions align="end">
-                    <button mat-icon-button (click)="groupOn(room.id);$event.stopPropagation();"><mat-icon>power_settings_new</mat-icon></button>
-                    <button mat-icon-button (click)="groupOff(room.id);$event.stopPropagation();"><mat-icon>not_interested</mat-icon></button>
-                </mat-card-actions>
             </mat-card>
         </div>
     </div>
