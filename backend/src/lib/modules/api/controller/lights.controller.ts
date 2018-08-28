@@ -1,6 +1,7 @@
 import { Body, Get, JsonController, Param, Put } from '@neoskop/nem';
 import { HueApi, lightState } from 'node-hue-api';
 import { Hue } from '../decorators/hue.decorator';
+import State = lightState.State;
 
 @JsonController()
 export class LightsController {
@@ -21,8 +22,9 @@ export class LightsController {
     @Put('/:id/state')
     setLightState(@Hue() api : HueApi,
                   @Param('id') id : string,
-                  @Body() body : Object) {
+                  @Body() body : { [P in keyof State]: any }) {
         return api.setLightState(id, lightState.create(body));
+        
     }
     
     @Put('/:id/:value')
