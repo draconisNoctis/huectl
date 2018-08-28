@@ -54,7 +54,7 @@ export class Color {
             G = 0,
             B = 0;
 
-        if (H < 60) {
+        if (H === 360 || H < 60) {
             R = V;
             G = t;
             B = p;
