@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Color } from '@huectl/utils';
 
 export interface IState {
     on : boolean;
@@ -29,41 +30,9 @@ export class StateToColorPipe implements PipeTransform {
         const S = state.sat / 255;
         const V = state.bri / 255;
         
-        const h = H / 60 | 0;
-        const f = H / 60  - h;
-        const p = V * (1 - S);
-        const q = V * (1 - S * f);
-        const t = V * (1 - S * (1 - f));
-    
-        let R = 0, G = 0, B = 0;
+        const c = Color.fromHSV(H, S, V);
         
-        if(H < 60) {
-            R = V;
-            G = t;
-            B = p;
-        } else if(H < 120) {
-            R = q;
-            G = V;
-            B = p;
-        } else if(H < 180) {
-            R = p;
-            G = V;
-            B = t;
-        } else if(H < 240) {
-            R = p;
-            G = q;
-            B = V;
-        } else if(H < 300) {
-            R = t;
-            G = p;
-            B = V;
-        } else {
-            R = V;
-            G = p;
-            B = q;
-        }
-        
-        return `rgb(${R*255|0},${G*255|0},${B*255|0})`;
+        return `rgb(${c.R},${c.G},${c.B})`;
     }
     
 }
