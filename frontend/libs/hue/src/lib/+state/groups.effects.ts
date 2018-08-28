@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-import { delay, filter, first, map, switchMap, tap } from 'rxjs/operators';
-import { NEVER, of, defer, combineLatest } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { delay, filter, first, map, switchMap } from 'rxjs/operators';
+import { combineLatest, defer, NEVER, of } from 'rxjs';
 import { DecreaseLoadingAction, IncreaseLoadingAction } from '@huectl/loading';
 import {
     GroupActionTypes,
+    GroupActivateSceneAction,
     GroupOffAction,
     GroupOnAction,
-    LoadGroupsAction, RefreshGroupsAction,
-    StoreGroupsAction,
+    GroupSetStateAction,
+    LoadGroupsAction,
+    RefreshGroupsAction,
+    StoreGroupsAction
 } from './groups.actions';
 import { GroupsData } from './groups.reducer';
 import { HueState, selectHueGroups } from './hue.reducer';
@@ -19,8 +22,9 @@ import { LoadLightsAction } from './lights.actions';
 @Injectable()
 export class GroupsEffects {
     @Effect()
-    getGroups$ = this.actions$.ofType(GroupActionTypes.GET).pipe(
-        switchMap(() => this.store$.select(selectHueGroups).pipe(first())),
+    getGroups$ = this.actions$.pipe(
+        ofType(GroupActionTypes.GET),
+        switchMap(() => this.store$.pipe(select(selectHueGroups), first())),
         switchMap((rooms : GroupsData) => {
             if(!rooms.loading && 0 === rooms.ids.length) {
                 return of(new LoadGroupsAction());
@@ -68,6 +72,25 @@ export class GroupsEffects {
     groupOff$ = this.actions$.pipe(
         ofType(GroupActionTypes.OFF),
         switchMap((action : GroupOffAction) => this.groupsService.off(action.payload.group)),
+        switchMap(() => of(new LoadGroupsAction(), new LoadLightsAction()))
+    );
+    
+    @Effect()
+    groupSetState = this.actions$.pipe(
+        ofType(GroupActionTypes.SET_STATE),
+        switchMap((action : GroupSetStateAction) => {
+            const { group, ...state } = action.payload;
+            return this.groupsService.state(group, state);
+        }),
+        switchMap(() => of(new LoadGroupsAction(), new LoadLightsAction()))
+    );
+    
+    @Effect()
+    groupActivateScene = this.actions$.pipe(
+        ofType(GroupActionTypes.ACTIVATE_SCENE),
+        switchMap((action : GroupActivateSceneAction) => {
+            return this.groupsService.scene(action.payload.group, action.payload.scene);
+        }),
         switchMap(() => of(new LoadGroupsAction(), new LoadLightsAction()))
     );
     

@@ -1,5 +1,6 @@
-import { ILightGroup } from 'node-hue-api';
+import { ILightGroup, lightState } from 'node-hue-api';
 import { Action } from '@ngrx/store';
+import State = lightState.State;
 
 export enum GroupActionTypes {
     GET = '[Group] Get Groups',
@@ -7,7 +8,9 @@ export enum GroupActionTypes {
     STORE = '[Group] Store Groups',
     REFRESH = '[Group] Refresh Groups',
     ON = '[Group] On',
-    OFF = '[Group] Off'
+    OFF = '[Group] Off',
+    SET_STATE = '[Group] Set Group State',
+    ACTIVATE_SCENE = '[Group] Activate Scene'
 }
 
 export class GetGroupsAction implements Action {
@@ -42,4 +45,16 @@ export class GroupOffAction implements Action {
     constructor(public readonly payload : { group : string }) {}
 }
 
-export type GroupsActions = GetGroupsAction | LoadGroupsAction | StoreGroupsAction | RefreshGroupsAction | GroupOnAction | GroupOffAction;
+export class GroupSetStateAction implements Action {
+    readonly type = GroupActionTypes.SET_STATE;
+    
+    constructor(public readonly payload : { group: string } & { [P in keyof State]?: any }) {}
+}
+
+export class GroupActivateSceneAction implements Action {
+    readonly type = GroupActionTypes.ACTIVATE_SCENE;
+    
+    constructor(public readonly payload : { group : string; scene : string }) {}
+}
+
+export type GroupsActions = GetGroupsAction | LoadGroupsAction | StoreGroupsAction | RefreshGroupsAction | GroupOnAction | GroupOffAction | GroupSetStateAction | GroupActivateSceneAction;

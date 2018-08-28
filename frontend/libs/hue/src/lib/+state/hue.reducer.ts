@@ -8,7 +8,15 @@ import { ScenesData, _selectAllScenes } from './scenes.reducer';
 
 declare module 'node-hue-api' {
     export interface ILightGroup {
-        $lights?: ILight[]
+        $lights?: ILight[];
+        state: {
+            any_on: boolean;
+            all_on: boolean;
+        }
+    }
+    
+    export interface IScene {
+        recycle: boolean;
     }
 }
 

@@ -3,7 +3,7 @@ import {
     MatButtonModule,
     MatCardModule,
     MatDialogModule,
-    MatDividerModule,
+    MatDividerModule, MatExpansionModule,
     MatFormFieldModule,
     MatGridListModule,
     MatIconModule,
@@ -38,7 +38,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         MatCardModule,
         MatSlideToggleModule,
         MatTabsModule,
-        MatSliderModule
+        MatSliderModule,
+        MatExpansionModule
     ],
     exports: [
         FlexLayoutModule,
@@ -58,7 +59,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         MatCardModule,
         MatSlideToggleModule,
         MatTabsModule,
-        MatSliderModule
+        MatSliderModule,
+        MatExpansionModule
     ]
 })
 export class MaterialModule {

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { ILight, ILightGroup } from 'node-hue-api';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../+state/app.state';
-import { filter, first, map, switchMap, throttleTime, bufferTime, startWith } from 'rxjs/operators';
+import { bufferTime, filter, first, map, startWith, switchMap } from 'rxjs/operators';
 import { GetGroupsAction, GetLightsAction, LightSetStateAction, selectAllGroupsWithLights } from '@huectl/hue';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Color } from '@huectl/utils';

@@ -34,7 +34,7 @@ export class LightsService {
         )
     }
     
-    state(light, state : { [P in keyof State]?: any }) {
+    state(light : string, state : { [P in keyof State]?: any }) {
         return this.store.pipe(
             select(selectHueApi),
             switchMap(({ bridge, account }) => this.http.put<boolean>(`/api/bridge/${bridge}/${account}/lights/${light}/state`, JSON.stringify(state), {
