@@ -1,34 +1,38 @@
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
-    "baseUrl": ".",
-    "paths": {
-      "@huectl/common": [
-        "libs/common/src/index.ts"
-      ],
-      "@huectl/hue": [
-        "libs/hue/src/index.ts"
-      ],
-      "@huectl/loading": [
-        "libs/loading/src/index.ts"
-      ]
-    }
-  },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+    "compileOnSave": false,
+    "compilerOptions": {
+        "sourceMap": true,
+        "declaration": false,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "downlevelIteration": true,
+        "target": "es5",
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "lib": [
+            "es2017",
+            "dom"
+        ],
+        "baseUrl": ".",
+        "paths": {
+            "@huectl/common": [
+                "libs/common/src/index.ts"
+            ],
+            "@huectl/hue": [
+                "libs/hue/src/index.ts"
+            ],
+            "@huectl/loading": [
+                "libs/loading/src/index.ts"
+            ],
+            "@huectl/utils": [
+                "libs/utils/src/index.ts"
+            ]
+        }
+    },
+    "exclude": [
+        "node_modules",
+        "tmp"
+    ]
 }

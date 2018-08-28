@@ -1,0 +1,8 @@
+@mixin ct-gradient($angle: 'to bottom')
+    background-image: linear-gradient(#{$angle}, #FFB369, white, #DFE7FF)
+
+@mixin hsv-gradient()
+    background-image: linear-gradient(217deg, rgba(255,0,0,1), rgba(255,0,0,0) 60%), linear-gradient(127deg, rgba(0,255,0,1), rgba(0,255,0,0) 60%), linear-gradient(336deg, rgba(0,0,255,1), rgba(0,0,255,0) 60%)
+
+@mixin hsv-linear-gradient($angle: 'to bottom')
+    background-image: linear-gradient(#{$angle}, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00)

@@ -1,14 +1,21 @@
 import { NgModule } from '@angular/core';
 import {
-    MatButtonModule, MatCardModule, MatDialogModule,
+    MatButtonModule,
+    MatCardModule,
+    MatDialogModule,
     MatDividerModule,
-    MatFormFieldModule, MatGridListModule,
+    MatFormFieldModule,
+    MatGridListModule,
     MatIconModule,
     MatInputModule,
-    MatListModule, MatMenuModule,
+    MatListModule,
+    MatMenuModule,
     MatProgressSpinnerModule,
-    MatSelectModule, MatSlideToggleModule,
-    MatStepperModule, MatToolbarModule
+    MatSelectModule, MatSliderModule,
+    MatSlideToggleModule,
+    MatStepperModule,
+    MatTabsModule,
+    MatToolbarModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -29,7 +36,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         MatDialogModule,
         MatGridListModule,
         MatCardModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        MatTabsModule,
+        MatSliderModule
     ],
     exports: [
         FlexLayoutModule,
@@ -47,7 +56,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         MatDialogModule,
         MatGridListModule,
         MatCardModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        MatTabsModule,
+        MatSliderModule
     ]
 })
 export class MaterialModule {

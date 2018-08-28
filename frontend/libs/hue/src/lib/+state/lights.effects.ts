@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { delay, filter, first, map, switchMap } from 'rxjs/operators';
 import { NEVER } from 'rxjs/internal/observable/never';
 import { combineLatest, defer, of } from 'rxjs';
@@ -12,7 +12,7 @@ import { LoadGroupsAction } from './groups.actions';
 import {
     LightOffAction,
     LightOnAction,
-    LightsActionTypes,
+    LightsActionTypes, LightSetStateAction,
     LoadLightsAction,
     RefreshLightsAction,
     StoreLightsAction
@@ -21,8 +21,9 @@ import {
 @Injectable()
 export class LightsEffects {
     @Effect()
-    getLights$ = this.actions$.ofType(LightsActionTypes.GET).pipe(
-        switchMap(() => this.store$.select(selectHueLights).pipe(first())),
+    getLights$ = this.actions$.pipe(
+        ofType(LightsActionTypes.GET),
+        switchMap(() => this.store$.pipe(select(selectHueLights), first())),
         switchMap((rooms : LightsData) => {
             if(!rooms.loading && 0 === rooms.ids.length) {
                 return of(new LoadLightsAction());
@@ -70,6 +71,16 @@ export class LightsEffects {
     lightOff$ = this.actions$.pipe(
         ofType(LightsActionTypes.OFF),
         switchMap((action : LightOffAction) => this.lightsService.off(action.payload.light)),
+        switchMap(() => of(new LoadGroupsAction(), new LoadLightsAction()))
+    );
+    
+    @Effect()
+    lightSetState = this.actions$.pipe(
+        ofType(LightsActionTypes.SET_STATE),
+        switchMap((action : LightSetStateAction) => {
+            const { light, ...state } = action.payload;
+            return this.lightsService.state(light, state);
+        }),
         switchMap(() => of(new LoadGroupsAction(), new LoadLightsAction()))
     );
     

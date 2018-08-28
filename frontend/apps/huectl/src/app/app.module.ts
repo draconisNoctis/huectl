@@ -29,6 +29,7 @@ import { HeaderComponent } from './header/header.component';
 import { HueIconsModule } from './hue-icons/hue-icons.module';
 import { RoomsComponent } from './rooms/rooms.component';
 import { RoomLightsComponent } from './room-lights/room-lights.component';
+import { UtilsModule } from '@huectl/utils';
 
 const metaReducers : MetaReducer<any, any>[] = [];
 
@@ -65,7 +66,8 @@ metaReducers.push(localStorageSync({ keys: [
         ReactiveFormsModule,
         HueModule,
         LoadingModule,
-        HueIconsModule
+        HueIconsModule,
+        UtilsModule
     ],
     providers      : [ ConfigEffects ],
     bootstrap      : [ AppComponent ],

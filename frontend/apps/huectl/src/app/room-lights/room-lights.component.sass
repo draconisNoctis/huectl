@@ -1,0 +1,50 @@
+@import "../../sass/mixins/gradients"
+
+hc-room-lights
+    --color: black
+    .mat-tab-group
+        margin: 0 -24px
+
+        @media screen and (max-width: 599px)
+            margin: 0 -16px
+
+    .mat-tab-label
+        flex-grow: 1
+        min-width: 100px
+
+    .mat-slider
+        display: block
+
+        &.ct
+            +ct-gradient(to right)
+
+        &.hue
+            +hsv-linear-gradient(to right)
+
+        &.sat
+            background: linear-gradient(to right, white, var(--color))
+
+        &.full
+            height: 96px
+
+            .mat-slider-wrapper
+                left: 16px
+                right: 16px
+                top: calc(50% - 1px)
+
+    .mat-card
+        padding-bottom: 0
+        overflow: hidden
+
+    .color-icon
+        display: inline-block
+        width: 20px
+        height: 20px
+        border-radius: 50%
+        border: 1px solid rgba(0,0,0,.3)
+
+        &--ct
+            +ct-gradient()
+
+        &--hsv
+            +hsv-gradient()

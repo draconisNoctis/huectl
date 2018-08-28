@@ -5,17 +5,36 @@
     </ng-template>
 </hc-header>
 
-<div class="m-content" *ngIf="room | async as _room">
+<div class="m-content" *ngIf="room | async as _room" [formGroup]="form">
     <div class="m-grid">
-        <div class="m-grid__item" *ngFor="let light of _room.$lights">
+        <div class="m-grid__item" *ngFor="let light of _room.$lights; trackBy: trackById; let index = index" [formArrayName]="index">
             <mat-card>
                 <mat-card-title class="flex">
                     <span>{{ light?.name }}</span>
+                    <span class="spacer"></span>
+                    <mat-slide-toggle color="primary"
+                                      formControlName="toggle"></mat-slide-toggle>
                 </mat-card-title>
-                <mat-card-actions align="end">
-                    <button mat-icon-button (click)="lightOn(light.id);$event.stopPropagation();"><mat-icon>power_settings_new</mat-icon></button>
-                    <button mat-icon-button (click)="lightOff(light.id);$event.stopPropagation();"><mat-icon>not_interested</mat-icon></button>
-                </mat-card-actions>
+                <mat-card-content>
+                    <mat-slider class="bri" [max]="255" [step]="1" formControlName="bri" (input)="changeFormValue(index, 'bri', $event)"></mat-slider>
+
+                    <mat-tab-group [dynamicHeight]="true">
+                        <mat-tab>
+                            <mat-icon *matTabLabel>palette</mat-icon>
+                            Scenes
+                        </mat-tab>
+                        <mat-tab>
+                            <span class="color-icon color-icon--hsv" *matTabLabel></span>
+                            <mat-slider class="hue full" [max]="360" formControlName="hue" (input)="changeFormValue(index, 'hue', $event)"></mat-slider>
+                            <mat-slider class="sat full" [max]="255" formControlName="sat" (input)="changeFormValue(index, 'sat', $event)" [hcCssVar]="{ color: colors[index] }"></mat-slider>
+                        </mat-tab>
+                        <mat-tab>
+                            <span class="color-icon color-icon--ct" *matTabLabel></span>
+
+                            <mat-slider class="ct full" [max]="347" formControlName="ct" (input)="changeFormValue(index, 'ct', $event)"></mat-slider>
+                        </mat-tab>
+                    </mat-tab-group>
+                </mat-card-content>
             </mat-card>
         </div>
     </div>

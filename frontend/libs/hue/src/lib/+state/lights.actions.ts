@@ -1,5 +1,6 @@
-import { ILight } from 'node-hue-api';
+import { ILight, lightState } from 'node-hue-api';
 import { Action } from '@ngrx/store';
+import State = lightState.State;
 
 export enum LightsActionTypes {
     GET = '[Light] Get Lights',
@@ -7,7 +8,8 @@ export enum LightsActionTypes {
     STORE = '[Light] Store Lights',
     REFRESH = '[Light] Refresh Lights',
     ON = '[Light] On',
-    OFF = '[Light] Off'
+    OFF = '[Light] Off',
+    SET_STATE = '[Light] Set Light State'
 }
 
 export class GetLightsAction {
@@ -42,4 +44,16 @@ export class LightOffAction implements Action {
     constructor(public readonly payload : { light : string }) {}
 }
 
-export type LightsActions = GetLightsAction | LoadLightsAction | StoreLightsAction | RefreshLightsAction | LightOnAction | LightOffAction;
+export class LightSetStateAction implements Action {
+    readonly type = LightsActionTypes.SET_STATE;
+    
+    constructor(public readonly payload : { light: string } & { [P in keyof State]?: any }) {}
+}
+
+export type LightsActions = GetLightsAction
+    | LoadLightsAction
+    | StoreLightsAction
+    | RefreshLightsAction
+    | LightOnAction
+    | LightOffAction
+    | LightSetStateAction;
