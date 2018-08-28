@@ -26,7 +26,7 @@ export class ScenesEffects {
     @Effect()
     refreshScenes$ = this.actions$.pipe(
         ofType(ScenesActionTypes.REFRESH),
-        delay(5000),
+        delay(60000),
         switchMap(() => of(new RefreshScenesAction(), new LoadScenesAction({ silent: true })))
     );
     
