@@ -6,16 +6,17 @@ import { ILightGroup, IScene } from 'node-hue-api';
 import {
     GetGroupsAction,
     GetLightsAction,
-    GetScenesAction, GroupActivateSceneAction,
+    GetScenesAction,
+    GroupActivateSceneAction,
     GroupSetStateAction,
     selectAllGroupsWithLightsGroupedByType,
     selectAllScenes
 } from '@huectl/hue';
 import { MatSliderChange } from '@angular/material';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { bufferTime, filter, first, map, startWith } from 'rxjs/operators';
+import { bufferTime, distinctUntilChanged, filter, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { Color } from '@huectl/utils';
-import { merge } from 'rxjs/index';
+import { BehaviorSubject, merge, NEVER } from 'rxjs';
 
 @Component({
   selector: 'hc-rooms',
@@ -31,6 +32,8 @@ export class RoomsComponent implements OnInit {
     rooms : Observable<ILightGroup[]>;
     scenes : Observable<IScene[]>;
     
+    userInteraction = new BehaviorSubject<boolean>(false);
+    
     constructor(protected readonly store : Store<AppState>) {
     }
     
@@ -45,9 +48,21 @@ export class RoomsComponent implements OnInit {
             select(selectAllScenes)
         );
         
-        this.rooms.pipe(
-            first()
+        this.form.valueChanges.pipe(
+            tap(() => this.userInteraction.next(true)),
+            bufferTime(1000),
+            filter(a => a.length === 0),
+            tap(() => this.userInteraction.next(false))
+        ).subscribe();
+        
+        this.userInteraction.pipe(
+            distinctUntilChanged(),
+            switchMap(b => b ? NEVER : this.rooms)
         ).subscribe(rooms => {
+            while(this.form.length) {
+                this.form.removeAt(0);
+            }
+            
             for(const [i, room] of rooms.entries()) {
                 const toggle = new FormControl(room.state.any_on);
                 const bri = new FormControl(room.action.bri);

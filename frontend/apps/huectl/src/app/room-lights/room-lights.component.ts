@@ -4,12 +4,13 @@ import { Observable } from 'rxjs/Observable';
 import { ILight, ILightGroup } from 'node-hue-api';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../+state/app.state';
-import { bufferTime, filter, first, map, startWith, switchMap } from 'rxjs/operators';
+import { bufferTime, distinctUntilChanged, filter, first, map, startWith, switchMap, tap } from 'rxjs/operators';
 import { GetGroupsAction, GetLightsAction, LightSetStateAction, selectAllGroupsWithLights } from '@huectl/hue';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Color } from '@huectl/utils';
 import { merge } from 'rxjs';
 import { MatSliderChange } from '@angular/material';
+import { BehaviorSubject, NEVER } from 'rxjs/index';
 
 @Component({
     selector     : 'hc-room-lights',
@@ -22,6 +23,8 @@ export class RoomLightsComponent implements OnInit {
     
     form = new FormArray([]);
     colors : string[] = [];
+    
+    userInteraction = new BehaviorSubject<boolean>(false);
     
     constructor(protected readonly route : ActivatedRoute,
                 protected readonly store : Store<AppState>) {
@@ -36,10 +39,22 @@ export class RoomLightsComponent implements OnInit {
             )),
             filter(group => !!(group && group.$lights && group.$lights.every(light => !!light)))
         );
-        
-        this.room.pipe(
-            first()
+    
+        this.form.valueChanges.pipe(
+            tap(() => this.userInteraction.next(true)),
+            bufferTime(1000),
+            filter(a => a.length === 0),
+            tap(() => this.userInteraction.next(false))
+        ).subscribe();
+    
+        this.userInteraction.pipe(
+            distinctUntilChanged(),
+            switchMap(b => b ? NEVER : this.room)
         ).subscribe(group => {
+            while(this.form.length) {
+                this.form.removeAt(0);
+            }
+    
             for(const [i, light] of group.$lights.entries()) {
                 const toggle = new FormControl(light.state.on);
                 const bri = new FormControl(light.state.bri);
