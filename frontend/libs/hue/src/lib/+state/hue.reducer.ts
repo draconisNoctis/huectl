@@ -4,6 +4,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { ILightGroup, ILight } from 'node-hue-api';
 import { Dictionary } from '@ngrx/entity';
 import { _selectAllLights, LightsData } from './lights.reducer';
+import { ScenesData, _selectAllScenes } from './scenes.reducer';
 
 declare module 'node-hue-api' {
     export interface ILightGroup {
@@ -15,6 +16,7 @@ export interface HueData {
     api: ApiData;
     groups: GroupsData;
     lights: LightsData;
+    scenes: ScenesData;
 }
 
 export interface HueState {
@@ -25,9 +27,11 @@ export const selectHue = createFeatureSelector<HueData>('hue');
 export const selectHueApi = (state : HueState) => selectHue(state).api;
 export const selectHueGroups = (state : HueState) => selectHue(state).groups;
 export const selectHueLights = (state : HueState) => selectHue(state).lights;
+export const selectHueScenes = (state : HueState) => selectHue(state).scenes;
 
 export const selectAllGroups = createSelector(selectHueGroups, _selectAllGroups);
 export const selectAllLights = createSelector(selectHueLights, _selectAllLights);
+export const selectAllScenes = createSelector(selectHueScenes, _selectAllScenes);
 
 export const selectAllGroupsWithLights = createSelector(selectAllGroups, selectAllLights, (groups : ILightGroup[], lights : ILight[]) => {
     return groups.map(group => ({

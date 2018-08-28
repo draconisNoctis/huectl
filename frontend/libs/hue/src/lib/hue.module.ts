@@ -7,15 +7,18 @@ import { GroupsEffects } from './+state/groups.effects';
 import { lightsReducer } from './+state/lights.reducer';
 import { LightsEffects } from './+state/lights.effects';
 import { StateToColorPipe } from './state-to-color.pipe';
+import { ScenesEffects } from './+state/scenes.effects';
+import { scenesReducer } from './+state/scenes.reducer';
 
 @NgModule({
     imports     : [
         StoreModule.forFeature('hue', {
             api   : apiReducer,
             groups: groupsReducer,
-            lights: lightsReducer
+            lights: lightsReducer,
+            scenes: scenesReducer
         }),
-        EffectsModule.forFeature([ GroupsEffects, LightsEffects ])
+        EffectsModule.forFeature([ GroupsEffects, LightsEffects, ScenesEffects ])
     ],
     declarations: [ StateToColorPipe ],
     exports     : [ StateToColorPipe ]

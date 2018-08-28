@@ -6,7 +6,7 @@ export interface LightsData extends EntityState<ILight> {
     loading: boolean | null;
 }
 
-export const lightAdapter = createEntityAdapter<any>();
+export const lightAdapter = createEntityAdapter<ILight>();
 
 const initalState : LightsData = lightAdapter.getInitialState({
     loading: null

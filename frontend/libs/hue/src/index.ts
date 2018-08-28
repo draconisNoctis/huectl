@@ -10,3 +10,6 @@ export * from './lib/+state/hue.reducer';
 export * from './lib/+state/lights.actions';
 export * from './lib/+state/lights.effects';
 export * from './lib/+state/lights.reducer';
+export * from './lib/+state/scenes.actions';
+export * from './lib/+state/scenes.effects';
+export * from './lib/+state/scenes.reducer';
