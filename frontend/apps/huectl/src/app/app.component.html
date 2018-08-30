@@ -1,2 +1,24 @@
-
-<router-outlet></router-outlet>
+<mat-sidenav-container (backdropClick)="closeMenu()">
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+    <mat-sidenav position="end"
+                 [opened]="menuOpened | async"
+                 [fixedInViewport]="true"
+                 (keydown.escape)="closeMenu()">
+        <mat-toolbar>
+            <span class="toolbar-spacer"></span>
+            <button mat-icon-button (click)="closeMenu()"><mat-icon>close</mat-icon></button>
+        </mat-toolbar>
+        <mat-nav-list>
+            <a mat-list-item (click)="openSetup()">
+                <mat-icon matListIcon>settings</mat-icon>
+                <span matLine>Setup</span>
+            </a>
+            <a mat-list-item (click)="openConfig()">
+                <mat-icon matListIcon>settings</mat-icon>
+                <span matLine>Configuration</span>
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+</mat-sidenav-container>

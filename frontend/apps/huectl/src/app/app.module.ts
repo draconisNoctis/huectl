@@ -30,6 +30,7 @@ import { HueIconsModule } from './hue-icons/hue-icons.module';
 import { RoomsComponent } from './rooms/rooms.component';
 import { RoomLightsComponent } from './room-lights/room-lights.component';
 import { UtilsModule } from '@huectl/utils';
+import { menuReducer } from './+state/menu.reducer';
 
 const metaReducers : MetaReducer<any, any>[] = [];
 
@@ -55,7 +56,8 @@ metaReducers.push(localStorageSync({ keys: [
         !environment.production ? StoreDevtoolsModule.instrument() : [],
         StoreModule.forRoot({
             config: configReducer,
-            setup : setupReducer
+            setup : setupReducer,
+            menu: menuReducer
         }, {
             metaReducers
         }),
@@ -67,7 +69,7 @@ metaReducers.push(localStorageSync({ keys: [
         HueModule,
         LoadingModule,
         HueIconsModule,
-        UtilsModule
+        UtilsModule,
     ],
     providers      : [ ConfigEffects ],
     bootstrap      : [ AppComponent ],

@@ -3,7 +3,8 @@ import {
     MatButtonModule,
     MatCardModule,
     MatDialogModule,
-    MatDividerModule, MatExpansionModule,
+    MatDividerModule,
+    MatExpansionModule,
     MatFormFieldModule,
     MatGridListModule,
     MatIconModule,
@@ -11,7 +12,9 @@ import {
     MatListModule,
     MatMenuModule,
     MatProgressSpinnerModule,
-    MatSelectModule, MatSliderModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
     MatSlideToggleModule,
     MatStepperModule,
     MatTabsModule,
@@ -39,7 +42,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         MatSlideToggleModule,
         MatTabsModule,
         MatSliderModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatSidenavModule
     ],
     exports: [
         FlexLayoutModule,
@@ -60,7 +64,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         MatSlideToggleModule,
         MatTabsModule,
         MatSliderModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatSidenavModule
     ]
 })
 export class MaterialModule {
