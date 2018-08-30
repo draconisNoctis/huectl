@@ -1,9 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons')
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css'
+
+@import "~@angular/material/theming"
 
 @import "sass/modules/grid"
 @import "sass/modules/content"
+
++mat-core()
+
+$app-primary: mat-palette($mat-red, 900, 700, 900)
+$app-accent: mat-palette($mat-yellow, A400, A200, A600)
+$app-warn: mat-palette($mat-red)
+
+$light-theme: mat-light-theme($app-primary, $app-accent, $app-warn)
+$dark-theme: mat-dark-theme($app-primary, $app-accent, $app-warn)
+
++angular-material-theme($dark-theme)
 
 .mat-card-title.flex
     display: flex
