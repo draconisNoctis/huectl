@@ -1,0 +1,48 @@
+<mat-expansion-panel hideToggle [formGroup]="form">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            <ng-template [ngTemplateOutlet]="title"></ng-template>
+            <ng-content select="hcTitle"></ng-content>
+        </mat-panel-title>
+
+        <mat-panel-description>
+            <ng-template [ngTemplateOutlet]="leadingAction"></ng-template>
+            <mat-slide-toggle [color]="color"
+                              formControlName="toggle"
+                              (click)="$event.stopPropagation()"></mat-slide-toggle>
+            <ng-template [ngTemplateOutlet]="trailingAction"></ng-template>
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-slider class="bri" [max]="255" [step]="1" formControlName="bri" (input)="changeFormValue('bri', $event)"></mat-slider>
+
+    <mat-tab-group [dynamicHeight]="true">
+        <ng-content select="hcLeadingTab"></ng-content>
+        <ng-template [ngTemplateOutlet]="leadingTabs"></ng-template>
+        <mat-tab>
+            <span class="color-icon color-icon--hsv" *matTabLabel></span>
+            <mat-slider [color]="color" class="hue full" [max]="360" formControlName="hue" (input)="changeFormValue('hue', $event)"></mat-slider>
+            <mat-slider [color]="color" class="sat full" [max]="255" formControlName="sat" (input)="changeFormValue('sat', $event)" [hcCssVar]="{ color: hueColor }"></mat-slider>
+        </mat-tab>
+        <ng-template [ngTemplateOutlet]="middleTabs"></ng-template>
+        <mat-tab>
+            <span class="color-icon color-icon--ct" *matTabLabel></span>
+
+            <mat-slider [color]="color" class="ct full" [max]="347" formControlName="ct" (input)="changeFormValue('ct', $event)"></mat-slider>
+        </mat-tab>
+        <mat-tab *ngIf="scenes">
+            <mat-icon *matTabLabel>palette</mat-icon>
+
+            <mat-list>
+                <ng-container *ngFor="let scene of scenes">
+                    <mat-list-item (click)="triggerScene.next(scene)">
+                        <ng-container matLine>
+                            <span>{{ scene.name }}</span>
+                            <mat-icon>play_arrow</mat-icon>
+                        </ng-container>
+                    </mat-list-item>
+                </ng-container>
+            </mat-list>
+        </mat-tab>
+    </mat-tab-group>
+</mat-expansion-panel>

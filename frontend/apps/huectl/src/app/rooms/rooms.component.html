@@ -4,45 +4,17 @@
 
 <div class="m-content" [formGroup]="form">
     <mat-accordion [multi]="true">
-        <mat-expansion-panel *ngFor="let room of rooms | async; trackBy: trackById; let index = index" hideToggle [formArrayName]="index">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
+        <ng-container *ngFor="let room of rooms | async; trackBy: trackById; let index = index" [formArrayName]="index">
+            <hc-hue-control [scenes]="getScenesForRoom(room) | async"
+                            (triggerScene)="activateScene(room, $event)">
+                <ng-template #hcTitle>
                     <mat-icon [svgIcon]="room.class" color="primary"></mat-icon>
                     <span>{{ room.name }}</span>
-                </mat-panel-title>
-
-                <mat-panel-description>
+                </ng-template>
+                <ng-template #hcLeadingAction>
                     <button mat-icon-button [routerLink]="[ '/rooms', room.id ]"><mat-icon>arrow_forward_ios</mat-icon></button>
-                    <mat-slide-toggle color="primary"
-                                      formControlName="toggle"
-                                      (click)="$event.stopPropagation()"></mat-slide-toggle>
-                </mat-panel-description>
-            </mat-expansion-panel-header>
-
-
-            <mat-slider class="bri" [max]="255" [step]="1" formControlName="bri" (input)="changeFormValue(index, 'bri', $event)"></mat-slider>
-
-            <mat-tab-group [dynamicHeight]="true">
-                <mat-tab>
-                    <span class="color-icon color-icon--hsv" *matTabLabel></span>
-                    <mat-slider class="hue full" [max]="360" formControlName="hue" (input)="changeFormValue(index, 'hue', $event)"></mat-slider>
-                    <mat-slider class="sat full" [max]="255" formControlName="sat" (input)="changeFormValue(index, 'sat', $event)" [hcCssVar]="{ color: colors[index] }"></mat-slider>
-                </mat-tab>
-                <mat-tab>
-                    <span class="color-icon color-icon--ct" *matTabLabel></span>
-
-                    <mat-slider class="ct full" [max]="347" formControlName="ct" (input)="changeFormValue(index, 'ct', $event)"></mat-slider>
-                </mat-tab>
-                <mat-tab>
-                    <mat-icon *matTabLabel>palette</mat-icon>
-
-                    <mat-list>
-                        <ng-container *ngFor="let scene of scenes | async">
-                            <mat-list-item *ngIf="roomHasScene(room, scene)" (click)="activateScene(room, scene)">{{ scene.name }}</mat-list-item>
-                        </ng-container>
-                    </mat-list>
-                </mat-tab>
-            </mat-tab-group>
-        </mat-expansion-panel>
+                </ng-template>
+            </hc-hue-control>
+        </ng-container>
     </mat-accordion>
 </div>

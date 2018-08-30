@@ -14,8 +14,7 @@ import {
 } from '@huectl/hue';
 import { MatSliderChange } from '@angular/material';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { bufferTime, distinctUntilChanged, filter, map, startWith, switchMap, tap } from 'rxjs/operators';
-import { Color } from '@huectl/utils';
+import { bufferTime, distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
 import { BehaviorSubject, merge, NEVER } from 'rxjs';
 
 @Component({
@@ -63,16 +62,12 @@ export class RoomsComponent implements OnInit {
                 this.form.removeAt(0);
             }
             
-            for(const [i, room] of rooms.entries()) {
+            for(const room of rooms) {
                 const toggle = new FormControl(room.state.any_on);
                 const bri = new FormControl(room.action.bri);
                 const hue = new FormControl(room.action.hue / 65535 * 360 |0);
                 const sat = new FormControl(room.action.sat);
                 const ct = new FormControl((room.action.ct - 500) * -1);
-
-                hue.valueChanges.pipe(startWith(hue.value)).subscribe(H => {
-                    this.colors[i] = Color.fromHSV(H, 1, 1).toHtml();
-                });
 
                 const group = new FormGroup({ toggle, bri, hue, sat, ct });
 
@@ -110,15 +105,13 @@ export class RoomsComponent implements OnInit {
         return room.id;
     }
     
-    changeFormValue(index : number, name: string, event : MatSliderChange) {
-        this.form.get([ index, name ]).setValue(event.value);
-    }
-    
-    roomHasScene(room : ILightGroup, scene : IScene) {
-        return !scene.recycle && room.lights.some(light => scene.lights.some(l => l.toString() === light));
-    }
-    
     activateScene(room : ILightGroup, scene : IScene) {
         this.store.dispatch(new GroupActivateSceneAction({ group: room.id, scene: scene.id }));
+    }
+    
+    getScenesForRoom(room : ILightGroup) {
+        return this.scenes.pipe(
+            map(scenes => scenes.filter(scene => !scene.recycle && room.lights.some(light => scene.lights.some(l => l.toString() === light))))
+        )
     }
 }
