@@ -1,8 +1,46 @@
 @import "../../../../../apps/huectl/src/sass/mixins/gradients"
+@import "~@angular/material/theming"
 
 hc-hue-control
     .mat-slider
         display: block
+
+        &.gradient
+            padding: 8px 24px
+            height: 72px
+
+            .mat-slider-wrapper
+                height: 16px
+                top: 24px
+                left: 24px
+                right: 24px
+                border-radius: 8px
+                +mat-overridable-elevation(1)
+
+                .mat-slider-track-wrapper
+                    height: 16px
+                    border-radius: 8px
+
+                    .mat-slider-track-background, .mat-slider-track-fill
+                        display: none
+
+                .mat-slider-thumb
+                    height: 40px
+                    width: 40px
+                    top: -20px
+                    right: -20px
+
+            &--hue
+                .mat-slider-wrapper .mat-slider-track-wrapper
+                    +hsv-linear-gradient(to right)
+
+            &--sat
+                .mat-slider-wrapper .mat-slider-track-wrapper
+                    background: linear-gradient(to right, white, var(--color))
+
+            &--ct
+                .mat-slider-wrapper .mat-slider-track-wrapper
+                    +ct-gradient(to right)
 
         &.ct
             +ct-gradient(to right)
@@ -12,14 +50,6 @@ hc-hue-control
 
         &.sat
             background: linear-gradient(to right, white, var(--color))
-
-        &.full
-            height: 96px
-
-            .mat-slider-wrapper
-                left: 16px
-                right: 16px
-                top: calc(50% - 1px)
 
     .mat-tab-group
         margin: 0 -24px

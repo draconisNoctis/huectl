@@ -21,14 +21,14 @@
         <ng-template [ngTemplateOutlet]="leadingTabs"></ng-template>
         <mat-tab>
             <span class="color-icon color-icon--hsv" *matTabLabel></span>
-            <mat-slider [color]="color" class="hue full" [max]="360" formControlName="hue" (input)="changeFormValue('hue', $event)"></mat-slider>
-            <mat-slider [color]="color" class="sat full" [max]="255" formControlName="sat" (input)="changeFormValue('sat', $event)" [hcCssVar]="{ color: hueColor }"></mat-slider>
+            <mat-slider [color]="color" class="gradient gradient--hue" [max]="360" formControlName="hue" (input)="changeFormValue('hue', $event)"></mat-slider>
+            <mat-slider [color]="color" class="gradient gradient--sat" [max]="255" formControlName="sat" (input)="changeFormValue('sat', $event)" [hcCssVar]="{ color: hueColor }"></mat-slider>
         </mat-tab>
         <ng-template [ngTemplateOutlet]="middleTabs"></ng-template>
         <mat-tab>
             <span class="color-icon color-icon--ct" *matTabLabel></span>
 
-            <mat-slider [color]="color" class="ct full" [max]="347" formControlName="ct" (input)="changeFormValue('ct', $event)"></mat-slider>
+            <mat-slider [color]="color" class="gradient gradient--ct" [max]="347" formControlName="ct" (input)="changeFormValue('ct', $event)"></mat-slider>
         </mat-tab>
         <mat-tab *ngIf="scenes">
             <mat-icon *matTabLabel>palette</mat-icon>
