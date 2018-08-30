@@ -12,7 +12,6 @@ import {
     selectAllGroupsWithLightsGroupedByType,
     selectAllScenes
 } from '@huectl/hue';
-import { MatSliderChange } from '@angular/material';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { bufferTime, distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
 import { BehaviorSubject, merge, NEVER } from 'rxjs';
@@ -25,8 +24,6 @@ import { BehaviorSubject, merge, NEVER } from 'rxjs';
 })
 export class RoomsComponent implements OnInit {
     form = new FormArray([]);
-    
-    colors : string[] = [];
     
     rooms : Observable<ILightGroup[]>;
     scenes : Observable<IScene[]>;

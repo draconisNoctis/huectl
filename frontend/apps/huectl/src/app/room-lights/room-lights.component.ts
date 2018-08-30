@@ -22,7 +22,6 @@ export class RoomLightsComponent implements OnInit {
     room : Observable<ILightGroup>;
     
     form = new FormArray([]);
-    colors : string[] = [];
     
     userInteraction = new BehaviorSubject<boolean>(false);
     
@@ -62,10 +61,6 @@ export class RoomLightsComponent implements OnInit {
                 const sat = new FormControl(light.state.sat);
                 const ct = new FormControl((light.state.ct - 500) * -1);
                 
-                hue.valueChanges.pipe(startWith(hue.value)).subscribe(H => {
-                    this.colors[i] = Color.fromHSV(H, 1, 1).toHtml();
-                });
-        
                 const group = new FormGroup({ toggle, bri, hue, sat, ct });
                 
                 merge(
@@ -100,9 +95,4 @@ export class RoomLightsComponent implements OnInit {
     trackById(light : ILight) {
         return light.id;
     }
-    
-    changeFormValue(index : number, name: string, event : MatSliderChange) {
-        this.form.get([ index, name ]).setValue(event.value);
-    }
-    
 }
