@@ -6,60 +6,9 @@
 @import "sass/modules/grid"
 @import "sass/modules/content"
 
+@import "sass/themes"
+
 +mat-core()
-
-$app-primary: mat-palette($mat-red, 900, 700, 900)
-$app-accent: mat-palette($mat-yellow, A400, A200, A600)
-$app-warn: mat-palette($mat-red)
-
-$light-theme: mat-light-theme($app-primary, $app-accent, $app-warn)
-$dark-theme: mat-dark-theme($app-primary, $app-accent, $app-warn)
-
-+angular-material-theme($dark-theme)
-
-.mat-card-title.flex
-    display: flex
-
-    .mat-icon
-        margin-right: 10px
-
-    .spacer
-        flex: 1 1 auto
-
-.hc-label-button
-    &.mat-fab
-        height: 156px
-        width: 156px
-        .mat-button-wrapper
-            display: flex
-            flex-direction: column
-            align-items: center
-            justify-content: center
-
-            .mat-icon
-                font-size: 60px
-                line-height: 1
-                height: 60px
-                width: 60px
-                margin-bottom: 10px
-
-.mat-icon.mat-xxl
-    font-size: 60px
-    width: 60px
-    height: 60px
-
-.full-height
-    height: 100%
-
-    &.mat-stepper-horizontal
-        display: flex
-        flex-direction: column
-
-        > *:nth-child(2)
-            flex-grow: 1
-            display: flex
-            flex-direction: column
-            justify-content: center
 
 body
     overflow-y: scroll

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AppState } from '../+state/app.state';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { ILightGroup } from 'node-hue-api';
 import { MatDialogRef } from '@angular/material';
@@ -18,17 +18,27 @@ import { Dictionary } from '@ngrx/entity';
 })
 export class ConfigurationDialogComponent implements OnInit {
     readonly form = new FormGroup({
-        room: new FormControl(null)
+        room: new FormControl(null),
+        theme: new FormControl(null, Validators.required)
     });
     
     rooms : Observable<Dictionary<ILightGroup[]>>;
+    
+    readonly themes = [
+        { id: 'dark-red', name: 'Dark Red' },
+        { id: 'light-red', name: 'Light Red' },
+        { id: 'dark-green', name: 'Dark green' },
+        { id: 'light-green', name: 'Light green' },
+        { id: 'dark-indigo-pink', name: 'Dark Indigo Pink' },
+        { id: 'light-indigo-pink', name: 'Light Indigo Pink' }
+    ];
     
     constructor(protected readonly ref : MatDialogRef<SetupDialogComponent, ConfigData>,
                 protected readonly store : Store<AppState>) {
     }
     
     ngOnInit() {
-        this.rooms = this.store.select(selectAllGroupsGroupedByType);
+        this.rooms = this.store.pipe(select(selectAllGroupsGroupedByType));
         this.store.dispatch(new GetGroupsAction());
         
         this.store.select('config').subscribe(config => {

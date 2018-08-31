@@ -1,0 +1,43 @@
+@import "~@angular/material/theming";
+
+.dark-red {
+    @include angular-material-theme(mat-dark-theme(
+            mat-palette($mat-red, 900, 700, 900),
+            mat-palette($mat-yellow, A400, A200, A600)
+    ));
+}
+
+.light-red {
+    @include angular-material-theme(mat-light-theme(
+            mat-palette($mat-red, 700, 500, 900),
+            mat-palette($mat-teal)
+    ));
+}
+
+.dark-green {
+    @include angular-material-theme(mat-dark-theme(
+            mat-palette($mat-light-green, A400, A200, A700),
+            mat-palette($mat-deep-purple)
+    ))
+}
+
+.light-green {
+    @include angular-material-theme(mat-light-theme(
+            mat-palette($mat-green),
+            mat-palette($mat-purple)
+    ))
+}
+
+.dark-indigo-pink {
+    @include angular-material-theme(mat-dark-theme(
+            mat-palette($mat-indigo),
+            mat-palette($mat-pink)
+    ))
+}
+
+.light-indigo-pink {
+    @include angular-material-theme(mat-light-theme(
+            mat-palette($mat-indigo),
+            mat-palette($mat-pink)
+    ))
+}

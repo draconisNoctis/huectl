@@ -10,6 +10,11 @@
             </mat-optgroup>
         </mat-select>
     </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-select matInput formControlName="theme" placeholder="theme">
+            <mat-option *ngFor="let theme of themes" [value]="theme.id">{{ theme.name }}</mat-option>
+        </mat-select>
+    </mat-form-field>
 </div>
 
 <mat-dialog-actions align="end">
