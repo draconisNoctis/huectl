@@ -17,14 +17,11 @@
     <mat-slider class="bri" [max]="255" [step]="1" formControlName="bri" (input)="changeFormValue('bri', $event)"></mat-slider>
 
     <mat-tab-group [dynamicHeight]="true">
-        <ng-content select="hcLeadingTab"></ng-content>
-        <ng-template [ngTemplateOutlet]="leadingTabs"></ng-template>
         <mat-tab>
             <span class="color-icon color-icon--hsv" *matTabLabel></span>
             <mat-slider [color]="color" class="gradient gradient--hue" [max]="360" formControlName="hue" (input)="changeFormValue('hue', $event)"></mat-slider>
             <mat-slider [color]="color" class="gradient gradient--sat" [max]="255" formControlName="sat" (input)="changeFormValue('sat', $event)" [hcCssVar]="{ color: hueColor }"></mat-slider>
         </mat-tab>
-        <ng-template [ngTemplateOutlet]="middleTabs"></ng-template>
         <mat-tab>
             <span class="color-icon color-icon--ct" *matTabLabel></span>
 

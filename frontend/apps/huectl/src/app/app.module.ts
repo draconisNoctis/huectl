@@ -8,7 +8,7 @@ import { MaterialModule } from './material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MetaReducer, StoreModule } from '@ngrx/store';
+import { ActionReducer, compose, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
@@ -32,16 +32,20 @@ import { RoomLightsComponent } from './room-lights/room-lights.component';
 import { UtilsModule } from '@huectl/utils';
 import { menuReducer } from './+state/menu.reducer';
 
-const metaReducers : MetaReducer<any, any>[] = [];
+const storeReducer = localStorageSync({ keys: [
+        'config',
+        { hue: [ 'api' ] }
+    ], rehydrate: true });
+const devReducer = compose(storeFreeze, storeReducer);
+const prodReducer = storeReducer;
 
-if(!environment.production) {
-    metaReducers.push(storeFreeze);
+export function metaReducer(action : ActionReducer<any, any>) : any {
+    if(!environment.production) {
+        return devReducer(action);
+    } else {
+        return prodReducer(action);
+    }
 }
-
-metaReducers.push(localStorageSync({ keys: [
-    'config',
-    { hue: [ 'api' ] }
-], rehydrate: true, storage: localStorage }));
 
 @NgModule({
     declarations   : [ AppComponent, DashboardComponent, SetupDialogComponent, ConfigurationDialogComponent, RoomsComponent, HeaderComponent, RoomLightsComponent ],
@@ -59,7 +63,9 @@ metaReducers.push(localStorageSync({ keys: [
             setup : setupReducer,
             menu: menuReducer
         }, {
-            metaReducers
+            metaReducers: [
+                metaReducer
+            ]
         }),
         StoreRouterConnectingModule.forRoot({
             stateKey: 'router'
