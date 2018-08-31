@@ -1,8 +1,14 @@
 .m-grid
     display: grid
-    grid-template-columns: 1fr
+    grid-template-columns: 1fr 1fr
     grid-column-gap: 10px
     grid-row-gap: 10px
 
+    > *:not(.small)
+        grid-column-end: span 2
+
     @media screen and (min-width: 600px)
-        grid-template-columns: 1fr 1fr
+        grid-template-columns: 1fr 1fr 1fr 1fr
+
+        > .large
+            grid-column-end: span 4
