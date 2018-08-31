@@ -11,12 +11,21 @@
             <button mat-icon-button (click)="closeMenu()"><mat-icon>close</mat-icon></button>
         </mat-toolbar>
         <mat-nav-list>
+            <a mat-list-item [routerLink]="[ '/' ]" (click)="closeMenu()">
+                <mat-icon color="primary" matListIcon>home</mat-icon>
+                <span matLine>Home</span>
+            </a>
+            <a mat-list-item [routerLink]="[ '/rooms' ]" (click)="closeMenu()">
+                <mat-icon color="primary" matListIcon>meeting_room</mat-icon>
+                <span matLine>Rooms</span>
+            </a>
+            <mat-divider></mat-divider>
             <a mat-list-item (click)="openSetup()">
-                <mat-icon matListIcon>settings</mat-icon>
+                <mat-icon color="primary" matListIcon>build</mat-icon>
                 <span matLine>Setup</span>
             </a>
             <a mat-list-item (click)="openConfig()">
-                <mat-icon matListIcon>settings</mat-icon>
+                <mat-icon color="primary" matListIcon>settings</mat-icon>
                 <span matLine>Configuration</span>
             </a>
         </mat-nav-list>
