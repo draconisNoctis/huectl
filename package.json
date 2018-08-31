@@ -1,0 +1,9 @@
+{
+  "name": "huectl",
+  "version": "0.0.0",
+  "scripts": {
+    "docker-deploy": "yarn run docker-build && yarn run docker-push",
+    "docker-build": "docker build -t mwecke/huectl .",
+    "docker-push": "docker push mwecke/huectl"
+  }
+}
