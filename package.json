@@ -2,8 +2,9 @@
   "name": "huectl",
   "version": "0.0.0",
   "scripts": {
+    "docker-deploy-all": "CONFIGURATION=en TAG=latest yarn run docker-deploy && CONFIGURATION=en TAG=en yarn run docker-deploy && CONFIGURATION=de TAG=de yarn run docker-deploy ",
     "docker-deploy": "yarn run docker-build && yarn run docker-push",
-    "docker-build": "docker build -t mwecke/huectl .",
-    "docker-push": "docker push mwecke/huectl"
+    "docker-build": "docker build -t mwecke/huectl:$TAG --build-arg CONFIGURATION=$CONFIGURATION .",
+    "docker-push": "docker push mwecke/huectl:$TAG"
   }
 }

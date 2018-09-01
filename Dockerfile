@@ -14,7 +14,9 @@ RUN cd frontend && yarn --production=false --frozen-lockfile --non-interactive
 COPY . .
 
 RUN cd backend && yarn run build
-RUN cd frontend && yarn run build
+
+ARG CONFIGURATION=en
+RUN cd frontend && yarn run build --configuration=$CONFIGURATION
 
 FROM node:10
 
