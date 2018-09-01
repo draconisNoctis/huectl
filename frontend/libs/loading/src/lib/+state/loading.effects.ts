@@ -3,24 +3,25 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material';
 import { LoadingData, LoadingState } from './loading.reducer';
-import { CloseDialogAction, LoadingActionTypes, OpenDialogAction } from './loading.actions';
+import { CloseDialogAction, IncreaseLoadingAction, LoadingActionTypes, OpenDialogAction } from './loading.actions';
 import { delay, first, map, switchMap } from 'rxjs/operators';
-import { NEVER, of } from 'rxjs';
+import { NEVER, of, combineLatest } from 'rxjs';
 import { LoadingDialogComponent } from '../loading-dialog/loading-dialog.component';
 
 @Injectable()
 export class LoadingEffects {
     @Effect()
     increase$ = this.actions$.ofType(LoadingActionTypes.INCREASE).pipe(
-        switchMap(() => this.store$.select('loading').pipe(first())),
-        switchMap((state : LoadingData) => {
+        switchMap((action : IncreaseLoadingAction) => combineLatest(of(action), this.store$.select('loading').pipe(first()))),
+        switchMap(([ action, state ]) => {
             if(state.count === 1) {
-                return of(null)
+                return of(action)
             }
             return NEVER;
         }),
         delay(1),
-        map(() => new OpenDialogAction(this.dialog.open(LoadingDialogComponent, {
+        map(action => new OpenDialogAction(this.dialog.open(LoadingDialogComponent, {
+            data: action.payload,
             disableClose: true,
             backdropClass: 'none'
         }).id))

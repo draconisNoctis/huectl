@@ -8,7 +8,9 @@ export enum LoadingActionTypes {
 }
 
 export class IncreaseLoadingAction implements Action {
-    readonly type = LoadingActionTypes.INCREASE
+    readonly type = LoadingActionTypes.INCREASE;
+    
+    constructor(public readonly payload : { title?: string, description?: string } = {}) {}
 }
 
 export class DecreaseLoadingAction implements Action {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import { ApiUpdateAction, BridgeService } from '@huectl/hue';
 import { BridgesLoaded, OpenSetupDialog, Register, SetupActionTypes } from './setup.actions';
 import { switchMap } from 'rxjs/operators';
@@ -11,9 +11,10 @@ import { DecreaseLoadingAction, IncreaseLoadingAction } from '@huectl/loading';
 @Injectable()
 export class SetupEffects {
     @Effect()
-    searchBridges$ = this.actions$.ofType(SetupActionTypes.SearchBridges).pipe(
+    searchBridges$ = this.actions$.pipe(
+        ofType(SetupActionTypes.SearchBridges),
         switchMap(() => concat(
-            of(new IncreaseLoadingAction()),
+            of(new IncreaseLoadingAction({ title: 'Searching...', description: 'Searching for available bridges...' })),
             this.bridgeService.search().pipe(
                 switchMap(result => of(new DecreaseLoadingAction(), new BridgesLoaded(result)))
             )
@@ -21,7 +22,8 @@ export class SetupEffects {
     );
     
     @Effect()
-    openSetupDialog$ = this.actions$.ofType(SetupActionTypes.OpenSetup).pipe(
+    openSetupDialog$ = this.actions$.pipe(
+        ofType(SetupActionTypes.OpenSetup),
         switchMap((action : OpenSetupDialog) => {
             const dialog = this.dialog.open(SetupDialogComponent, action.payload);
             
@@ -33,9 +35,10 @@ export class SetupEffects {
     );
     
     @Effect()
-    register$ = this.actions$.ofType(SetupActionTypes.Register).pipe(
+    register$ = this.actions$.pipe(
+        ofType(SetupActionTypes.Register),
         switchMap((action : Register) => concat(
-            of(new IncreaseLoadingAction()),
+            of(new IncreaseLoadingAction({ title: 'Waiting...', description: 'Click button on your hue bridge to register.' })),
             this.bridgeService.register(action.payload).pipe(
                 switchMap(account => of(
                     new DecreaseLoadingAction(),
