@@ -4,12 +4,10 @@ import { Observable } from 'rxjs/Observable';
 import { ILight, ILightGroup } from 'node-hue-api';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../+state/app.state';
-import { bufferTime, distinctUntilChanged, filter, first, map, startWith, switchMap, tap } from 'rxjs/operators';
-import { GetGroupsAction, GetLightsAction, LightSetStateAction, selectAllGroupsWithLights } from '@huectl/hue';
+import { bufferTime, distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
+import { LightSetStateAction, selectAllGroupsWithLights } from '@huectl/hue';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { Color } from '@huectl/utils';
 import { merge } from 'rxjs';
-import { MatSliderChange } from '@angular/material';
 import { BehaviorSubject, NEVER } from 'rxjs/index';
 
 @Component({
@@ -97,9 +95,6 @@ export class RoomLightsComponent implements OnInit {
                 }
             }
         });
-    
-        this.store.dispatch(new GetGroupsAction());
-        this.store.dispatch(new GetLightsAction());
     }
     
     trackById(light : ILight) {

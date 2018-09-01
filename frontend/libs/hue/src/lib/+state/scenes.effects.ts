@@ -2,27 +2,14 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { delay, filter, first, map, switchMap } from 'rxjs/operators';
-import { combineLatest, defer, NEVER, of } from 'rxjs';
+import { combineLatest, defer, of } from 'rxjs';
 import { DecreaseLoadingAction, IncreaseLoadingAction } from '@huectl/loading';
 import { LoadScenesAction, RefreshScenesAction, ScenesActionTypes, StoreScenesAction, } from './scenes.actions';
-import { ScenesData } from './scenes.reducer';
 import { ScenesService } from '../scenes.service';
-import { HueState, selectHueScenes } from './hue.reducer';
+import { HueState, selectHueApi } from './hue.reducer';
 
 @Injectable()
 export class ScenesEffects {
-    @Effect()
-    getScenes$ = this.actions$.pipe(
-        ofType(ScenesActionTypes.GET),
-        switchMap(() => this.store$.pipe(select(selectHueScenes), first())),
-        switchMap((rooms : ScenesData) => {
-            if(!rooms.loading && 0 === rooms.ids.length) {
-                return of(new LoadScenesAction());
-            }
-            return NEVER;
-        }),
-    );
-    
     @Effect()
     refreshScenes$ = this.actions$.pipe(
         ofType(ScenesActionTypes.REFRESH),
@@ -53,7 +40,12 @@ export class ScenesEffects {
     
     @Effect()
     init$ = defer(() => {
-        return of(new RefreshScenesAction());
+        return this.store$.pipe(
+            select(selectHueApi),
+            filter(api => !!(api && api.bridge && api.account)),
+            first(),
+            switchMap(() => of(new LoadScenesAction(), new RefreshScenesAction()))
+        )
     });
     
     constructor(protected readonly actions$ : Actions,

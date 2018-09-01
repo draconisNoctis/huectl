@@ -3,7 +3,6 @@ import { Action } from '@ngrx/store';
 import State = lightState.State;
 
 export enum GroupActionTypes {
-    GET = '[Group] Get Groups',
     LOAD = '[Group] Loadi Groups',
     STORE = '[Group] Store Groups',
     REFRESH = '[Group] Refresh Groups',
@@ -11,10 +10,6 @@ export enum GroupActionTypes {
     OFF = '[Group] Off',
     SET_STATE = '[Group] Set Group State',
     ACTIVATE_SCENE = '[Group] Activate Scene'
-}
-
-export class GetGroupsAction implements Action {
-    readonly type = GroupActionTypes.GET;
 }
 
 export class LoadGroupsAction implements Action {
@@ -57,4 +52,4 @@ export class GroupActivateSceneAction implements Action {
     constructor(public readonly payload : { group : string; scene : string }) {}
 }
 
-export type GroupsActions = GetGroupsAction | LoadGroupsAction | StoreGroupsAction | RefreshGroupsAction | GroupOnAction | GroupOffAction | GroupSetStateAction | GroupActivateSceneAction;
+export type GroupsActions = LoadGroupsAction | StoreGroupsAction | RefreshGroupsAction | GroupOnAction | GroupOffAction | GroupSetStateAction | GroupActivateSceneAction;

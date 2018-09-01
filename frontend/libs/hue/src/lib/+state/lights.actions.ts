@@ -3,7 +3,6 @@ import { Action } from '@ngrx/store';
 import State = lightState.State;
 
 export enum LightsActionTypes {
-    GET = '[Light] Get Lights',
     LOAD = '[Light] Load Lights',
     STORE = '[Light] Store Lights',
     REFRESH = '[Light] Refresh Lights',
@@ -12,20 +11,18 @@ export enum LightsActionTypes {
     SET_STATE = '[Light] Set Light State'
 }
 
-export class GetLightsAction {
-    readonly type = LightsActionTypes.GET;
-}
-
 export class LoadLightsAction {
     readonly type = LightsActionTypes.LOAD;
     
-    constructor(public readonly payload : { silent?: boolean } = {}) {}
+    constructor(public readonly payload : { silent? : boolean } = {}) {
+    }
 }
 
 export class StoreLightsAction {
     readonly type = LightsActionTypes.STORE;
     
-    constructor(public readonly payload : { silent?: boolean, lights : ILight[] }) {}
+    constructor(public readonly payload : { silent? : boolean, lights : ILight[] }) {
+    }
 }
 
 export class RefreshLightsAction {
@@ -35,23 +32,25 @@ export class RefreshLightsAction {
 export class LightOnAction implements Action {
     readonly type = LightsActionTypes.ON;
     
-    constructor(public readonly payload : { light : string }) {}
+    constructor(public readonly payload : { light : string }) {
+    }
 }
 
 export class LightOffAction implements Action {
     readonly type = LightsActionTypes.OFF;
     
-    constructor(public readonly payload : { light : string }) {}
+    constructor(public readonly payload : { light : string }) {
+    }
 }
 
 export class LightSetStateAction implements Action {
     readonly type = LightsActionTypes.SET_STATE;
     
-    constructor(public readonly payload : { light: string } & { [P in keyof State]?: any }) {}
+    constructor(public readonly payload : { light : string } & { [P in keyof State]? : any }) {
+    }
 }
 
-export type LightsActions = GetLightsAction
-    | LoadLightsAction
+export type LightsActions = LoadLightsAction
     | StoreLightsAction
     | RefreshLightsAction
     | LightOnAction

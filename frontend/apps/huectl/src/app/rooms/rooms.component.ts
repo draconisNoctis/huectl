@@ -4,9 +4,6 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { ILightGroup, IScene } from 'node-hue-api';
 import {
-    GetGroupsAction,
-    GetLightsAction,
-    GetScenesAction,
     GroupActivateSceneAction,
     GroupSetStateAction,
     selectAllGroupsWithLightsGroupedByType,
@@ -102,10 +99,6 @@ export class RoomsComponent implements OnInit {
                 }
             }
         });
-        
-        this.store.dispatch(new GetGroupsAction());
-        this.store.dispatch(new GetLightsAction());
-        this.store.dispatch(new GetScenesAction());
     }
     
     trackById(room : ILightGroup) {

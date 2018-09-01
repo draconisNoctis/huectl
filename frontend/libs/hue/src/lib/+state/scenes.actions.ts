@@ -2,14 +2,9 @@ import { IScene } from 'node-hue-api';
 import { Action } from '@ngrx/store';
 
 export enum ScenesActionTypes {
-    GET = '[Scene] Get Scenes',
     LOAD = '[Scene] Loadi Scenes',
     STORE = '[Scene] Store Scenes',
     REFRESH = '[Scene] Refresh Scenes',
-}
-
-export class GetScenesAction implements Action {
-    readonly type = ScenesActionTypes.GET;
 }
 
 export class LoadScenesAction implements Action {
@@ -28,4 +23,4 @@ export class RefreshScenesAction implements Action {
     readonly type = ScenesActionTypes.REFRESH;
 }
 
-export type ScenesActions = GetScenesAction | LoadScenesAction | StoreScenesAction | RefreshScenesAction;
+export type ScenesActions = LoadScenesAction | StoreScenesAction | RefreshScenesAction;

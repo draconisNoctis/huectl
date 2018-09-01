@@ -2,17 +2,16 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import { delay, filter, first, map, switchMap } from 'rxjs/operators';
-import { NEVER } from 'rxjs/internal/observable/never';
 import { combineLatest, defer, of } from 'rxjs';
 import { DecreaseLoadingAction, IncreaseLoadingAction } from '@huectl/loading';
-import { HueState, selectHueLights } from './hue.reducer';
-import { LightsData } from './lights.reducer';
+import { HueState, selectHueApi } from './hue.reducer';
 import { LightsService } from '../lights.service';
 import { LoadGroupsAction } from './groups.actions';
 import {
     LightOffAction,
     LightOnAction,
-    LightsActionTypes, LightSetStateAction,
+    LightsActionTypes,
+    LightSetStateAction,
     LoadLightsAction,
     RefreshLightsAction,
     StoreLightsAction
@@ -20,18 +19,6 @@ import {
 
 @Injectable()
 export class LightsEffects {
-    @Effect()
-    getLights$ = this.actions$.pipe(
-        ofType(LightsActionTypes.GET),
-        switchMap(() => this.store$.pipe(select(selectHueLights), first())),
-        switchMap((rooms : LightsData) => {
-            if(!rooms.loading && 0 === rooms.ids.length) {
-                return of(new LoadLightsAction());
-            }
-            return NEVER;
-        }),
-    );
-    
     @Effect()
     refreshLights$ = this.actions$.pipe(
         ofType(LightsActionTypes.REFRESH),
@@ -84,9 +71,16 @@ export class LightsEffects {
         switchMap(() => of(new LoadGroupsAction(), new LoadLightsAction()))
     );
     
+    
+    
     @Effect()
     init$ = defer(() => {
-        return of(new RefreshLightsAction());
+        return this.store$.pipe(
+            select(selectHueApi),
+            filter(api => !!(api && api.bridge && api.account)),
+            first(),
+            switchMap(() => of(new LoadLightsAction(), new RefreshLightsAction()))
+        )
     });
     
     constructor(protected readonly actions$ : Actions,

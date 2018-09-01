@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Store, select } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { delay, filter, first, map, switchMap } from 'rxjs/operators';
-import { combineLatest, defer, NEVER, of } from 'rxjs';
+import { combineLatest, defer, of } from 'rxjs';
 import { DecreaseLoadingAction, IncreaseLoadingAction } from '@huectl/loading';
 import {
     GroupActionTypes,
@@ -14,24 +14,12 @@ import {
     RefreshGroupsAction,
     StoreGroupsAction
 } from './groups.actions';
-import { GroupsData } from './groups.reducer';
-import { HueState, selectHueGroups } from './hue.reducer';
+import { HueState, selectHueApi } from './hue.reducer';
 import { GroupsService } from '../groups.service';
 import { LoadLightsAction } from './lights.actions';
 
 @Injectable()
 export class GroupsEffects {
-    @Effect()
-    getGroups$ = this.actions$.pipe(
-        ofType(GroupActionTypes.GET),
-        switchMap(() => this.store$.pipe(select(selectHueGroups), first())),
-        switchMap((rooms : GroupsData) => {
-            if(!rooms.loading && 0 === rooms.ids.length) {
-                return of(new LoadGroupsAction());
-            }
-            return NEVER;
-        }),
-    );
     
     @Effect()
     refreshGroups$ = this.actions$.pipe(
@@ -96,7 +84,12 @@ export class GroupsEffects {
     
     @Effect()
     init$ = defer(() => {
-        return of(new RefreshGroupsAction());
+        return this.store$.pipe(
+            select(selectHueApi),
+            filter(api => !!(api && api.bridge && api.account)),
+            first(),
+            switchMap(() => of(new LoadGroupsAction(), new RefreshGroupsAction()))
+        )
     });
     
     constructor(protected readonly actions$ : Actions,

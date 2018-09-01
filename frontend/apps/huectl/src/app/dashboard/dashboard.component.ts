@@ -3,7 +3,7 @@ import { AppState } from '../+state/app.state';
 import { select, Store } from '@ngrx/store';
 import { OpenSetupDialog } from '../+state/setup.actions';
 import { OpenConfigDialog } from '../+state/config.actions';
-import { GetGroupsAction, selectAllGroupsGroupedByType } from '@huectl/hue';
+import { selectAllGroupsGroupedByType } from '@huectl/hue';
 import { map } from 'rxjs/operators';
 import { ILightGroup } from 'node-hue-api';
 
@@ -35,8 +35,6 @@ export class DashboardComponent implements OnInit {
             select('LightGroup'),
             map((a? : ILightGroup[]) => a ? { total: a.length, on: a.filter(l => l.state && l.state.any_on).length } : { total: 0, on: 0 })
         ).subscribe(lightGroupCount => this.lightGroupCount = lightGroupCount);
-        
-        this.store.dispatch(new GetGroupsAction());
     }
     
     openSetup() {
