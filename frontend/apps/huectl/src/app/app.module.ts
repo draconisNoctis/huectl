@@ -27,8 +27,8 @@ import { ConfigurationDialogComponent } from './configuration-dialog/configurati
 import { LoadingModule } from '@huectl/loading';
 import { HeaderComponent } from './header/header.component';
 import { HueIconsModule } from './hue-icons/hue-icons.module';
-import { RoomsComponent } from './rooms/rooms.component';
-import { RoomLightsComponent } from './room-lights/room-lights.component';
+import { GroupsComponent } from './groups/groups.component';
+import { GroupLightsComponent } from './group-lights/group-lights.component';
 import { UtilsModule } from '@huectl/utils';
 import { menuReducer } from './+state/menu.reducer';
 
@@ -48,7 +48,7 @@ export function metaReducer(action : ActionReducer<any, any>) : any {
 }
 
 @NgModule({
-    declarations   : [ AppComponent, DashboardComponent, SetupDialogComponent, ConfigurationDialogComponent, RoomsComponent, HeaderComponent, RoomLightsComponent ],
+    declarations   : [ AppComponent, DashboardComponent, SetupDialogComponent, ConfigurationDialogComponent, GroupsComponent, HeaderComponent, GroupLightsComponent ],
     imports        : [
         BrowserModule,
         BrowserAnimationsModule,

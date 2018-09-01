@@ -9,7 +9,7 @@ import { ScenesData, _selectAllScenes } from './scenes.reducer';
 declare module 'node-hue-api' {
     export interface ILightGroup {
         $lights?: ILight[];
-        state: {
+        state?: {
             any_on: boolean;
             all_on: boolean;
         }
@@ -44,7 +44,7 @@ export const selectAllScenes = createSelector(selectHueScenes, _selectAllScenes)
 export const selectAllGroupsWithLights = createSelector(selectAllGroups, selectAllLights, (groups : ILightGroup[], lights : ILight[]) => {
     return groups.map(group => ({
         ...group,
-        $lights: group.lights && group.lights.map(id => lights.find(light => light.id === id))
+        $lights: group.lights ? group.lights.map(id => lights.find(light => light.id === id)) : []
     }));
 });
 

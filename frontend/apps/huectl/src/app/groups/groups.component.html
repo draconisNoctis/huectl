@@ -1,7 +1,7 @@
 <hc-header>
     <ng-template #title>
         <button mat-icon-button [routerLink]="[ '..' ]"><mat-icon>arrow_back_ios</mat-icon></button>
-        <h1>Rooms</h1>
+        <h1>{{ pageTitle | async }}</h1>
     </ng-template>
 </hc-header>
 

@@ -19,6 +19,10 @@
                 <mat-icon color="primary" matListIcon>meeting_room</mat-icon>
                 <span matLine>Rooms</span>
             </a>
+            <a mat-list-item [routerLink]="[ '/light-groups' ]" (click)="closeMenu()">
+                <mat-icon color="primary" matListIcon>group_work</mat-icon>
+                <span matLine>Rooms</span>
+            </a>
             <mat-divider></mat-divider>
             <a mat-list-item (click)="openSetup()">
                 <mat-icon color="primary" matListIcon>build</mat-icon>

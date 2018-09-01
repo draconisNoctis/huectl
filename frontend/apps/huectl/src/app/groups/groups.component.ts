@@ -11,29 +11,35 @@ import {
 } from '@huectl/hue';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { bufferTime, distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
-import { BehaviorSubject, merge, NEVER } from 'rxjs';
+import { BehaviorSubject, merge, NEVER, combineLatest } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'hc-rooms',
-  templateUrl: './rooms.component.html',
-  styleUrls: ['./rooms.component.sass'],
+  selector: 'hc-groups',
+  templateUrl: './groups.component.html',
+  styleUrls: ['./groups.component.sass'],
   encapsulation: ViewEncapsulation.None
 })
-export class RoomsComponent implements OnInit {
+export class GroupsComponent implements OnInit {
     form = new FormArray([]);
     
     rooms : Observable<ILightGroup[]>;
     scenes : Observable<IScene[]>;
+    pageTitle : Observable<string>;
     
     userInteraction = new BehaviorSubject<boolean>(false);
     
-    constructor(protected readonly store : Store<AppState>) {
+    constructor(protected readonly route : ActivatedRoute,
+                protected readonly store : Store<AppState>) {
     }
     
     ngOnInit() {
-        this.rooms = this.store.pipe(
-            select(selectAllGroupsWithLightsGroupedByType),
-            select('Room'),
+        this.pageTitle = this.route.data.pipe(map(data => data.title));
+        this.rooms = combineLatest(
+            this.store.pipe(select(selectAllGroupsWithLightsGroupedByType)),
+            this.route.data.pipe(map(data => data.type))
+        ).pipe(
+            map(([types, type]) => types && types[type]),
             filter(Boolean)
         );
         
@@ -58,11 +64,11 @@ export class RoomsComponent implements OnInit {
             
             for(const [ i, room ] of rooms.entries()) {
                 if(this.form.length < i + 1) {
-                    const toggle = new FormControl(room.state.any_on);
-                    const bri = new FormControl(room.action.bri);
-                    const hue = new FormControl(room.action.hue / 65536 * 360 | 0);
-                    const sat = new FormControl(room.action.sat);
-                    const ct = new FormControl((room.action.ct - 500) * -1);
+                    const toggle = new FormControl(room.state && room.state.any_on);
+                    const bri = new FormControl(room.action && room.action.bri);
+                    const hue = new FormControl(room.action && room.action.hue / 65536 * 360 | 0);
+                    const sat = new FormControl(room.action && room.action.sat);
+                    const ct = new FormControl(room.action && (room.action.ct - 500) * -1);
     
                     const group = new FormGroup({ toggle, bri, hue, sat, ct });
     
@@ -90,11 +96,11 @@ export class RoomsComponent implements OnInit {
                     this.form.push(group);
                 } else {
                     this.form.at(i).patchValue({
-                        toggle: room.state.any_on,
-                        bri   : room.action.bri,
-                        hue   : room.action.hue / 65536 * 360 | 0,
-                        sat   : room.action.sat,
-                        ct    : (room.action.ct - 500) * -1
+                        toggle: room.state && room.state.any_on,
+                        bri   : room.action && room.action.bri,
+                        hue   : room.action && room.action.hue / 65536 * 360 | 0,
+                        sat   : room.action && room.action.sat,
+                        ct    : room.action && (room.action.ct - 500) * -1
                     }, { emitEvent: false });
                 }
             }
@@ -110,8 +116,11 @@ export class RoomsComponent implements OnInit {
     }
     
     getScenesForRoom(room : ILightGroup) {
+        if(!room.lights) {
+            return NEVER;
+        }
         return this.scenes.pipe(
-            map(scenes => scenes.filter(scene => !scene.recycle && room.lights.some(light => scene.lights.some(l => l.toString() === light))))
+            map(scenes => scenes.filter(scene => !scene.recycle && scene.lights && room.lights.some(light => scene.lights.some(l => l.toString() === light))))
         )
     }
 }

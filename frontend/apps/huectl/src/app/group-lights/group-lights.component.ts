@@ -11,12 +11,12 @@ import { merge } from 'rxjs';
 import { BehaviorSubject, NEVER } from 'rxjs/index';
 
 @Component({
-    selector     : 'hc-room-lights',
-    templateUrl  : './room-lights.component.html',
-    styleUrls    : [ './room-lights.component.sass' ],
+    selector     : 'hc-group-lights',
+    templateUrl  : './group-lights.component.html',
+    styleUrls    : [ './group-lights.component.sass' ],
     encapsulation: ViewEncapsulation.None
 })
-export class RoomLightsComponent implements OnInit {
+export class GroupLightsComponent implements OnInit {
     room : Observable<ILightGroup>;
     
     form = new FormArray([]);
