@@ -6,14 +6,20 @@
             <mat-card-content>
                 <mat-icon>meeting_room</mat-icon>
                 <h2 i18n>Rooms</h2>
-                <small i18n>{roomCount.on, plural, =0 {Non} =1 {One} other {{{ roomCount.on }}}} of your {roomCount.total, plural, =0 {zero rooms } =1 {one room } other {{{ roomCount.total }} rooms }} {roomCount.on, plural, =1 {is on} other {are on}}.</small>
+                <small i18n>{roomCount.on, plural,
+                        =1 {1 of your {roomCount.total, plural, =1 {1 room} other {{{ roomCount.total }} rooms}} is on.}
+                        other {{{ roomCount.on}} of your {roomCount.total, plural, =1 {1 room} other {{{ roomCount.total }} rooms}} are on.}
+                }</small>
             </mat-card-content>
         </mat-card>
         <mat-card [routerLink]="[ '/light-groups' ]">
             <mat-card-content>
                 <mat-icon>group_work</mat-icon>
                 <h2 i18n>Light Groups</h2>
-                <small i18n>{lightGroupCount.on, plural, =0 {Non} =1 {One} other {{{ lightGroupCount.on }}}} of your {lightGroupCount.total, plural, =0 {zero light groups } =1 {one light group } other {{{ lightGroupCount.total }} light groups }} {lightGroupCount.on, plural, =1 {is on} other {are on}}.</small>
+                <small i18n>{roomCount.on, plural,
+                    =1 {1 of your {lightGroupCount.total, plural, =1 {1 light group} other {{{ lightGroupCount.total }} light groups}} is on.}
+                    other {{{ lightGroupCount.on}} of your {lightGroupCount.total, plural, =1 {1 light group} other {{{ lightGroupCount.total }} light groups}} are on.}
+                }</small>
             </mat-card-content>
         </mat-card>
         <mat-card class="small" (click)="openSetup()">

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE translationbundle [
+<!ELEMENT translationbundle (translation)*>
+<!ATTLIST translationbundle lang CDATA #REQUIRED>
+
+<!ELEMENT translation (#PCDATA|ph)*>
+<!ATTLIST translation id CDATA #REQUIRED>
+<!ATTLIST translation desc CDATA #IMPLIED>
+<!ATTLIST translation meaning CDATA #IMPLIED>
+<!ATTLIST translation xml:space (default|preserve) "default">
+
+<!ELEMENT ph (#PCDATA|ex)*>
+<!ATTLIST ph name CDATA #REQUIRED>
+
+<!ELEMENT ex (#PCDATA)>
+]>
+<translationbundle lang="de">
+  <translation id="2821179408673282599">Übersicht</translation>
+  <translation id="6318077128670918892">Räume</translation>
+  <translation id="6492831808763156510">Setup</translation>
+  <translation id="3008420115644088420">Einstellungen</translation>
+  <translation id="5251399164981505238">{VAR_PLURAL_2, plural, =1 {1 von deine{VAR_PLURAL, plural, =1 {m 1 Raum} other {n <ph name="INTERPOLATION"><ex>{{ roomCount.total }}</ex></ph> Räumen} } ist eingeschaltet.} other {<ph name="INTERPOLATION_1"><ex>{{ roomCount.on}}</ex></ph> von deine{VAR_PLURAL_1, plural, =1 {m 1 Raum} other {n <ph name="INTERPOLATION"><ex>{{ roomCount.total }}</ex></ph> Räumen} } sind eingeschaltet.} }</translation>
+  <translation id="2422482084524537695">Lichtgruppen</translation>
+  <translation id="5421570427738225362">{VAR_PLURAL_2, plural, =1 {1 von deine{VAR_PLURAL, plural, =1 {r 1 Lichtgruppe} other {n <ph name="INTERPOLATION"><ex>{{ roomCount.total }}</ex></ph> Lichtgruppen} } ist eingeschaltet.} other {<ph name="INTERPOLATION_1"><ex>{{ roomCount.on}}</ex></ph> von deine{VAR_PLURAL_1, plural, =1 {r 1 Lichtgruppe} other {n <ph name="INTERPOLATION"><ex>{{ roomCount.total }}</ex></ph> Lichtgruppen} } sind eingeschaltet.} }</translation>
+</translationbundle>
