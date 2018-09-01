@@ -5,6 +5,8 @@ apps:
       ignore_watch:
         - src
         - node_modules
+      env:
+        HUE_ACCOUNT: wwDrY4zCLgpzB1EZKoPEnCWLohOojH3CSV85QGIK
     - script: node_modules/.bin/tsc
       args: --watch
       name: huectl-typescript

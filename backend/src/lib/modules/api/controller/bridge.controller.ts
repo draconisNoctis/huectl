@@ -13,6 +13,11 @@ export class BridgeController {
     async register(@Param('host') host : string,
                    @QueryParam('description') description: string = 'huectl - API',
                    @QueryParam('timeout', { type: 'int' }) timeout = 60000) {
+        if(process.env.HUE_ACCOUNT) {
+            return await new Promise(resolve => {
+                setTimeout(() => resolve(process.env.HUE_ACCOUNT), 2000)
+            });
+        }
         const api = new HueApi();
         const start = Date.now();
         while(true) {

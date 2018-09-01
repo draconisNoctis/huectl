@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IUpnpSearchResultItem } from 'node-hue-api';
-import { of } from 'rxjs';
-import { delay } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -18,8 +16,7 @@ export class BridgeService {
         });
     }
     
-    register(_host : string) {
-        return of("wwDrY4zCLgpzB1EZKoPEnCWLohOojH3CSV85QGIK").pipe(delay(500))
-        // return this.http.get<string>(`/api/bridge/${host}/register`);
+    register(host : string) {
+        return this.http.get<string>(`/api/bridge/${host}/register`);
     }
 }
