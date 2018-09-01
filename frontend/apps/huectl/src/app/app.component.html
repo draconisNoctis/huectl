@@ -13,24 +13,24 @@
         <mat-nav-list>
             <a mat-list-item [routerLink]="[ '/' ]" (click)="closeMenu()">
                 <mat-icon color="primary" matListIcon>home</mat-icon>
-                <span matLine>Home</span>
+                <span matLine i18n>Home</span>
             </a>
             <a mat-list-item [routerLink]="[ '/rooms' ]" (click)="closeMenu()">
                 <mat-icon color="primary" matListIcon>meeting_room</mat-icon>
-                <span matLine>Rooms</span>
+                <span matLine i18n>Rooms</span>
             </a>
             <a mat-list-item [routerLink]="[ '/light-groups' ]" (click)="closeMenu()">
                 <mat-icon color="primary" matListIcon>group_work</mat-icon>
-                <span matLine>Rooms</span>
+                <span matLine i18n>Rooms</span>
             </a>
             <mat-divider></mat-divider>
             <a mat-list-item (click)="openSetup()">
                 <mat-icon color="primary" matListIcon>build</mat-icon>
-                <span matLine>Setup</span>
+                <span matLine i18n>Setup</span>
             </a>
             <a mat-list-item (click)="openConfig()">
                 <mat-icon color="primary" matListIcon>settings</mat-icon>
-                <span matLine>Configuration</span>
+                <span matLine i18n>Configuration</span>
             </a>
         </mat-nav-list>
     </mat-sidenav>

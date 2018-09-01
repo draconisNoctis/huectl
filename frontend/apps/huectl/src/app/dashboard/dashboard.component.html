@@ -5,27 +5,27 @@
         <mat-card [routerLink]="[ '/rooms' ]">
             <mat-card-content>
                 <mat-icon>meeting_room</mat-icon>
-                <h2>Rooms</h2>
+                <h2 i18n>Rooms</h2>
                 <small i18n>{roomCount.on, plural, =0 {Non} =1 {One} other {{{ roomCount.on }}}} of your {roomCount.total, plural, =0 {zero rooms } =1 {one room } other {{{ roomCount.total }} rooms }} {roomCount.on, plural, =1 {is on} other {are on}}.</small>
             </mat-card-content>
         </mat-card>
         <mat-card [routerLink]="[ '/light-groups' ]">
             <mat-card-content>
                 <mat-icon>group_work</mat-icon>
-                <h2>Light Groups</h2>
+                <h2 i18n>Light Groups</h2>
                 <small i18n>{lightGroupCount.on, plural, =0 {Non} =1 {One} other {{{ lightGroupCount.on }}}} of your {lightGroupCount.total, plural, =0 {zero light groups } =1 {one light group } other {{{ lightGroupCount.total }} light groups }} {lightGroupCount.on, plural, =1 {is on} other {are on}}.</small>
             </mat-card-content>
         </mat-card>
         <mat-card class="small" (click)="openSetup()">
             <mat-card-content>
                 <mat-icon>build</mat-icon>
-                <h2>Setup</h2>
+                <h2 i18n>Setup</h2>
             </mat-card-content>
         </mat-card>
         <mat-card class="small" (click)="openConfig()">
             <mat-card-content>
                 <mat-icon>settings</mat-icon>
-                <h2>Configuration</h2>
+                <h2 i18n>Configuration</h2>
             </mat-card-content>
         </mat-card>
     </div>
