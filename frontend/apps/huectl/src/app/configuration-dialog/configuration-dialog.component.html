@@ -1,7 +1,7 @@
 <h2 matDialogTitle>Configuration</h2>
 
 <div [formGroup]="form" matDialogContent fxLayout="column">
-    <mat-form-field appearance="outline">
+    <mat-form-field [floatLabel]="true">
         <mat-select matInput formControlName="room" placeholder="Room">
             <mat-option [value]="null"><strong>None</strong></mat-option>
             <mat-divider></mat-divider>
@@ -10,7 +10,7 @@
             </mat-optgroup>
         </mat-select>
     </mat-form-field>
-    <mat-form-field appearance="outline">
+    <mat-form-field [floatLabel]="true">
         <mat-select matInput formControlName="theme" placeholder="theme">
             <mat-option *ngFor="let theme of themes" [value]="theme.id">{{ theme.name }}</mat-option>
         </mat-select>

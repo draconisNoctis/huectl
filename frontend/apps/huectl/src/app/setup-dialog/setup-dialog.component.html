@@ -1,7 +1,7 @@
 <h2 matDialogTitle>Setup</h2>
 
 <div [formGroup]="form" matDialogContent fxLayout="column">
-    <mat-form-field appearance="outline">
+    <mat-form-field [floatLabel]="true">
         <input matInput formControlName="bridge" placeholder="Bridge IP" *ngIf="!state.bridges" />
 
         <mat-select matInput formControlName="bridge" placeholder="Bridge IP" *ngIf="state.bridges">
@@ -15,7 +15,7 @@
         <mat-error *ngIf="bridgeControl.invalid && bridgeControl.errors.pattern">Bridge IP is <strong>invalid</strong></mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
+    <mat-form-field [floatLabel]="true">
         <input matInput formControlName="account" placeholder="Account" />
 
         <button mat-icon-button matSuffix color="primary" (click)="register()" [disabled]="accountControl.disabled"><mat-icon>person_add</mat-icon></button>
