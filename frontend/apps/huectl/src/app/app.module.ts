@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule, TRANSLATIONS, TRANSLATIONS_FORMAT } from '@angular/core';
 import { AppComponent } from './app.component';
 import { NxModule } from '@nrwl/nx';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,6 +31,7 @@ import { GroupsComponent } from './groups/groups.component';
 import { GroupLightsComponent } from './group-lights/group-lights.component';
 import { UtilsModule } from '@huectl/utils';
 import { menuReducer } from './+state/menu.reducer';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 const storeReducer = localStorageSync({ keys: [
         'config',
@@ -45,6 +46,11 @@ export function metaReducer(action : ActionReducer<any, any>) : any {
     } else {
         return prodReducer(action);
     }
+}
+
+export function translationFactory(locale : string) {
+    locale = (locale || 'en').toLowerCase().split(/[-_]/)[0];
+    return require(`raw-loader!../../locale/${locale}.xtb`);
 }
 
 @NgModule({
@@ -77,7 +83,15 @@ export function metaReducer(action : ActionReducer<any, any>) : any {
         HueIconsModule,
         UtilsModule,
     ],
-    providers      : [ ConfigEffects ],
+    providers      : [
+        I18n,
+        { provide: TRANSLATIONS_FORMAT, useValue: 'xtb' },
+        {
+            provide: TRANSLATIONS,
+            useFactory: translationFactory,
+            deps: [ LOCALE_ID ]
+        }
+    ],
     bootstrap      : [ AppComponent ],
     entryComponents: [ SetupDialogComponent, ConfigurationDialogComponent ]
 })
