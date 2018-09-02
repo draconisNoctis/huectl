@@ -53,9 +53,9 @@ export class ConfigEffects {
         pairwise(),
         tap(([ previous, current ]) => {
             if(previous) {
-                this.document.body.classList.remove(previous);
+                this.document.body.classList.remove(previous!);
             }
-            this.document.body.classList.add(current);
+            this.document.body.classList.add(current!);
         })
     );
     

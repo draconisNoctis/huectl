@@ -17,7 +17,7 @@ import { BehaviorSubject, NEVER } from 'rxjs/index';
     encapsulation: ViewEncapsulation.None
 })
 export class GroupLightsComponent implements OnInit {
-    room : Observable<ILightGroup>;
+    group? : Observable<ILightGroup>;
     
     form = new FormArray([]);
     
@@ -28,13 +28,13 @@ export class GroupLightsComponent implements OnInit {
     }
     
     ngOnInit() {
-        this.room = this.route.paramMap.pipe(
+        this.group = this.route.paramMap.pipe(
             map(m => m.get('id')!),
             switchMap(id => this.store.pipe(
                 select(selectAllGroupsWithLights),
                 map(groups => groups.find(group => group.id === id))
             )),
-            filter(group => !!(group && group.$lights && group.$lights.every(light => !!light)))
+            filter((group : ILightGroup|null) : group is ILightGroup => !!(group && group.$lights && group.$lights.every(light => !!light)))
         );
     
         this.form.valueChanges.pipe(
@@ -46,19 +46,19 @@ export class GroupLightsComponent implements OnInit {
     
         this.userInteraction.pipe(
             distinctUntilChanged(),
-            switchMap(b => b ? NEVER : this.room)
-        ).subscribe(group => {
-            while(this.form.length > group.$lights.length) {
+            switchMap(b => b ? NEVER : this.group!)
+        ).subscribe((group : ILightGroup) => {
+            while(this.form.length > group.$lights!.length) {
                 this.form.removeAt(this.form.length - 1);
             }
     
-            for(const [ i, light ] of group.$lights.entries()) {
+            for(const [ i, light ] of group.$lights!.entries()) {
                 if(this.form.length < i + 1) {
                     const toggle = new FormControl(light.state.on);
                     const bri = new FormControl(light.state.bri);
-                    const hue = new FormControl(light.state.hue / 65536 * 360 |0);
+                    const hue = new FormControl((light.state.hue || 0) / 65536 * 360 |0);
                     const sat = new FormControl(light.state.sat);
-                    const ct = new FormControl((light.state.ct - 500) * -1);
+                    const ct = new FormControl(((light.state.ct || 0) - 500) * -1);
     
                     const group = new FormGroup({ toggle, bri, hue, sat, ct });
     
@@ -76,7 +76,7 @@ export class GroupLightsComponent implements OnInit {
                         toggle.valueChanges.pipe(distinctUntilChanged(), map(on => ({ on })))
                     ).pipe(
                         map(state => new LightSetStateAction({
-                            light: light.id,
+                            light: light.id!,
                             ...state
                         }))
                     ).subscribe(action => {
@@ -88,9 +88,9 @@ export class GroupLightsComponent implements OnInit {
                     this.form.at(i).patchValue({
                         toggle: light.state.on,
                         bri   : light.state.bri,
-                        hue   : light.state.hue / 65536 * 360 | 0,
+                        hue   : (light.state.hue || 0)/ 65536 * 360 | 0,
                         sat   : light.state.sat,
-                        ct    : (light.state.ct - 500) * -1
+                        ct    : ((light.state.ct || 0) - 500) * -1
                     }, { emitEvent: false });
                 }
             }

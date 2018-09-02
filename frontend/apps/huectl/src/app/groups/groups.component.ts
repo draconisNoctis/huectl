@@ -23,9 +23,9 @@ import { ActivatedRoute } from '@angular/router';
 export class GroupsComponent implements OnInit {
     form = new FormArray([]);
     
-    rooms : Observable<ILightGroup[]>;
-    scenes : Observable<IScene[]>;
-    pageTitle : Observable<string>;
+    groups? : Observable<ILightGroup[]>;
+    scenes? : Observable<IScene[]>;
+    pageTitle? : Observable<string>;
     
     userInteraction = new BehaviorSubject<boolean>(false);
     
@@ -35,11 +35,11 @@ export class GroupsComponent implements OnInit {
     
     ngOnInit() {
         this.pageTitle = this.route.data.pipe(map(data => data.title));
-        this.rooms = combineLatest(
+        this.groups = combineLatest(
             this.store.pipe(select(selectAllGroupsWithLightsGroupedByType)),
-            this.route.data.pipe(map(data => data.type))
+            this.route.data.pipe(map(data => data.type as 'Room'|'LightGroup'))
         ).pipe(
-            map(([types, type]) => types && types[type]),
+            map(([types, type] ) => types && types[type]),
             filter(Boolean)
         );
         
@@ -56,13 +56,13 @@ export class GroupsComponent implements OnInit {
         
         this.userInteraction.pipe(
             distinctUntilChanged(),
-            switchMap(b => b ? NEVER : this.rooms)
-        ).subscribe(rooms => {
-            while(this.form.length > rooms.length) {
+            switchMap(b => b ? NEVER : this.groups!)
+        ).subscribe(groups => {
+            while(this.form.length > groups.length) {
                 this.form.removeAt(this.form.length - 1);
             }
             
-            for(const [ i, room ] of rooms.entries()) {
+            for(const [ i, room ] of groups.entries()) {
                 if(this.form.length < i + 1) {
                     const toggle = new FormControl(room.state && room.state.any_on);
                     const bri = new FormControl(room.action && room.action.bri);
@@ -115,12 +115,12 @@ export class GroupsComponent implements OnInit {
         this.store.dispatch(new GroupActivateSceneAction({ group: room.id, scene: scene.id }));
     }
     
-    getScenesForRoom(room : ILightGroup) {
-        if(!room.lights) {
+    getScenesForGroup(group : ILightGroup) {
+        if(!group.lights) {
             return NEVER;
         }
-        return this.scenes.pipe(
-            map(scenes => scenes.filter(scene => !scene.recycle && scene.lights && room.lights.some(light => scene.lights.some(l => l.toString() === light))))
+        return this.scenes!.pipe(
+            map(scenes => scenes.filter(scene => !scene.recycle && scene.lights && group.lights!.some(light => scene.lights.some(l => l.toString() === light))))
         )
     }
 }

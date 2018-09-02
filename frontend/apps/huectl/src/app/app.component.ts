@@ -13,7 +13,7 @@ import { OpenConfigDialog } from './+state/config.actions';
     encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
-    menuOpened : Observable<boolean>;
+    menuOpened? : Observable<boolean>;
     
     constructor(protected readonly store : Store<AppState>) {
     

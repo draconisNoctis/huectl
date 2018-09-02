@@ -1,12 +1,12 @@
 <hc-header>
     <ng-template #title>
         <button mat-icon-button [routerLink]="[ '..' ]"><mat-icon>arrow_back_ios</mat-icon></button>
-        <h1 *ngIf="room | async as _room">{{ _room.name }}</h1>
+        <h1 *ngIf="group | async as _group">{{ _group.name }}</h1>
     </ng-template>
 </hc-header>
 
-<div class="m-content" *ngIf="room | async as _room" [formGroup]="form">
-    <ng-container *ngFor="let light of _room.$lights; trackBy: trackById; let index = index" [formArrayName]="index">
+<div class="m-content" *ngIf="group | async as _group" [formGroup]="form">
+    <ng-container *ngFor="let light of _group.$lights; trackBy: trackById; let index = index" [formArrayName]="index">
         <hc-hue-control>
             <ng-template #hcTitle>
                 <span>{{ light.name }}</span>

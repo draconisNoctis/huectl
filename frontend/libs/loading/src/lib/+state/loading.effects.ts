@@ -33,7 +33,7 @@ export class LoadingEffects {
         switchMap(() => this.store$.select('loading').pipe(first())),
         switchMap((state : LoadingData) => {
             if(state.count === 0 && state.dialogId) {
-                this.dialog.getDialogById(state.dialogId).close();
+                this.dialog.getDialogById(state.dialogId)!.close();
                 return of(new CloseDialogAction())
             }
             return NEVER;

@@ -7,15 +7,15 @@
 
 <div class="m-content" [formGroup]="form">
     <mat-accordion [multi]="true">
-        <ng-container *ngFor="let room of rooms | async; trackBy: trackById; let index = index" [formArrayName]="index">
-            <hc-hue-control [scenes]="getScenesForRoom(room) | async"
-                            (triggerScene)="activateScene(room, $event)">
+        <ng-container *ngFor="let group of groups | async; trackBy: trackById; let index = index" [formArrayName]="index">
+            <hc-hue-control [scenes]="getScenesForGroup(group) | async"
+                            (triggerScene)="activateScene(group, $event)">
                 <ng-template #hcTitle>
-                    <mat-icon [svgIcon]="room.class" color="primary"></mat-icon>
-                    <span>{{ room.name }}</span>
+                    <mat-icon [svgIcon]="group.class" color="primary"></mat-icon>
+                    <span>{{ group.name }}</span>
                 </ng-template>
                 <ng-template #hcLeadingAction>
-                    <button mat-icon-button [routerLink]="[ '/rooms', room.id ]"><mat-icon>arrow_forward_ios</mat-icon></button>
+                    <button mat-icon-button [routerLink]="[ group.id ]"><mat-icon>arrow_forward_ios</mat-icon></button>
                 </ng-template>
             </hc-hue-control>
         </ng-container>

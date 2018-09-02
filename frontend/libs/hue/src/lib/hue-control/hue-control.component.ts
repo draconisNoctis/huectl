@@ -24,10 +24,10 @@ import { Color } from '@huectl/utils';
 })
 export class HueControlComponent implements OnInit {
     @Input()
-    color : string;
+    color? : string;
     
     @Input()
-    scenes : IScene[];
+    scenes? : IScene[];
     
     @Output()
     triggerScene = new EventEmitter<IScene>();
@@ -41,9 +41,9 @@ export class HueControlComponent implements OnInit {
     @ContentChild('hcTrailingAction', { read: TemplateRef })
     trailingAction? : TemplateRef<any>;
     
-    hueColor: string;
+    hueColor?: string;
     
-    form : FormGroup;
+    form?: FormGroup;
     
     constructor(@Optional() @SkipSelf() protected readonly controlContainer : ControlContainer) {
     
@@ -66,6 +66,6 @@ export class HueControlComponent implements OnInit {
     }
     
     changeFormValue(name: string, event : MatSliderChange) {
-        this.form.get(name).setValue(event.value);
+        this.form!.get(name)!.setValue(event.value);
     }
 }

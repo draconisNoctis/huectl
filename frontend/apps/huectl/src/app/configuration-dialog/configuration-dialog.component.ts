@@ -22,7 +22,7 @@ export class ConfigurationDialogComponent implements OnInit {
         theme: new FormControl(null, Validators.required)
     });
     
-    rooms : Observable<Dictionary<ILightGroup[]>>;
+    rooms? : Observable<Dictionary<ILightGroup[]>>;
     
     readonly themes = [
         { id: 'dark-red', name: 'Dark Red' },

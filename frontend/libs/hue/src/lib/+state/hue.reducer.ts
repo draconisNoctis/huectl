@@ -1,6 +1,6 @@
 import { ApiData } from './api.reducer';
 import { _selectAllGroups, GroupsData } from './groups.reducer';
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector, Selector } from '@ngrx/store';
 import { ILightGroup, ILight } from 'node-hue-api';
 import { Dictionary } from '@ngrx/entity';
 import { _selectAllLights, LightsData } from './lights.reducer';
@@ -41,10 +41,10 @@ export const selectAllGroups = createSelector(selectHueGroups, _selectAllGroups)
 export const selectAllLights = createSelector(selectHueLights, _selectAllLights);
 export const selectAllScenes = createSelector(selectHueScenes, _selectAllScenes);
 
-export const selectAllGroupsWithLights = createSelector(selectAllGroups, selectAllLights, (groups : ILightGroup[], lights : ILight[]) => {
+export const selectAllGroupsWithLights : Selector<HueState, ILightGroup[]> = createSelector(selectAllGroups, selectAllLights, (groups : ILightGroup[], lights : ILight[]) => {
     return groups.map(group => ({
         ...group,
-        $lights: group.lights ? group.lights.map(id => lights.find(light => light.id === id)) : []
+        $lights: group.lights ? group.lights.map(id => lights.find(light => light.id === id)!).filter(Boolean) : []
     }));
 });
 

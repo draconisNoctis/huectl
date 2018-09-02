@@ -12,7 +12,7 @@ import { MenuOpenAction } from '../+state/menu.actions';
 export class HeaderComponent {
 
     @ContentChild('title', { read: TemplateRef })
-    title : TemplateRef<any>;
+    title? : TemplateRef<any>;
     
     constructor(protected readonly store : Store<AppState>) {
     }

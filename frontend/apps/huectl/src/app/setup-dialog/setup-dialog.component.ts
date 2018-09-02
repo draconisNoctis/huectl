@@ -32,7 +32,7 @@ export class SetupDialogComponent implements OnInit {
         account: this.accountControl
     });
     
-    state : SetupData;
+    state? : SetupData;
     
     constructor(public readonly ref : MatDialogRef<SetupDialogComponent, ConfigData>,
                 protected readonly store : Store<AppState>,

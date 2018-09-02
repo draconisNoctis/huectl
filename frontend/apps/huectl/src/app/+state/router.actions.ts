@@ -17,11 +17,11 @@ export class Navigate implements Action {
 }
 
 export class Forward implements Action {
-    readonly type : RouterActionTypes.Forward;
+    readonly type = RouterActionTypes.Forward;
 }
 
 export class Back implements Action {
-    readonly type : RouterActionTypes.Back;
+    readonly type = RouterActionTypes.Back;
 }
 
 export type RouterActions = Navigate | Forward | Back;
