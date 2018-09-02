@@ -13,6 +13,7 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { bufferTime, distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
 import { BehaviorSubject, merge, NEVER, combineLatest } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 @Component({
   selector: 'hc-groups',
@@ -29,12 +30,18 @@ export class GroupsComponent implements OnInit {
     
     userInteraction = new BehaviorSubject<boolean>(false);
     
+    protected readonly titles : { [key: string]: string } = {
+        Room: this.i18n('Rooms'),
+        LightGroup: this.i18n('Light Groups')
+    };
+    
     constructor(protected readonly route : ActivatedRoute,
-                protected readonly store : Store<AppState>) {
+                protected readonly store : Store<AppState>,
+                protected readonly i18n : I18n) {
     }
     
     ngOnInit() {
-        this.pageTitle = this.route.data.pipe(map(data => data.title));
+        this.pageTitle = this.route.data.pipe(map(data => this.titles[data.type]!));
         this.groups = combineLatest(
             this.store.pipe(select(selectAllGroupsWithLightsGroupedByType)),
             this.route.data.pipe(map(data => data.type as 'Room'|'LightGroup'))

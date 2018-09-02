@@ -22,4 +22,18 @@
   <translation id="5251399164981505238">{VAR_PLURAL_2, plural, =1 {1 von deine{VAR_PLURAL, plural, =1 {m 1 Raum} other {n <ph name="INTERPOLATION"><ex>{{ roomCount.total }}</ex></ph> Räumen} } ist eingeschaltet.} other {<ph name="INTERPOLATION_1"><ex>{{ roomCount.on}}</ex></ph> von deine{VAR_PLURAL_1, plural, =1 {m 1 Raum} other {n <ph name="INTERPOLATION"><ex>{{ roomCount.total }}</ex></ph> Räumen} } sind eingeschaltet.} }</translation>
   <translation id="2422482084524537695">Lichtgruppen</translation>
   <translation id="5421570427738225362">{VAR_PLURAL_2, plural, =1 {1 von deine{VAR_PLURAL, plural, =1 {r 1 Lichtgruppe} other {n <ph name="INTERPOLATION"><ex>{{ roomCount.total }}</ex></ph> Lichtgruppen} } ist eingeschaltet.} other {<ph name="INTERPOLATION_1"><ex>{{ roomCount.on}}</ex></ph> von deine{VAR_PLURAL_1, plural, =1 {r 1 Lichtgruppe} other {n <ph name="INTERPOLATION"><ex>{{ roomCount.total }}</ex></ph> Lichtgruppen} } sind eingeschaltet.} }</translation>
+  <translation id="4594779332484402036">Bridge IP</translation>
+  <translation id="4086606389696938932">Account</translation>
+  <translation id="3368417786821334758">Abbrechen</translation>
+  <translation id="3768927257183755959">Speichern</translation>
+  <translation id="518297907399160251">Raum</translation>
+  <translation id="7103588127254721505">Theme</translation>
+  <translation id="3278589620457344690">Hue Control</translation>
+  <translation id="d062683b7daa5c2a906cae1476771f87473aa8dd">Suche...</translation>
+  <translation id="6cca2ceccbb3e0346c032008f86bb168c0798491">Suche nach verfügbaren Bridges...</translation>
+  <translation id="7c6396f405a6ba73263d2c93d92b55a82c70827f">Warte...</translation>
+  <translation id="bf3b49b90d06f68f43e54d4b263ed21cc07c272b">Klicke den Button auf der Hue Bridge zum registrieren.</translation>
+  <translation id="d3dfb1ca49bb491ad804012a2ea1838e9e263cfd">Räume</translation>
+  <translation id="f59b11096ee93df04e281e55bf22a5a2bb27576e">Lichtgruppen</translation>
+  <translation id="94516fa213706c67ce5a5b5765681d7fb032033a">Lade...</translation>
 </translationbundle>

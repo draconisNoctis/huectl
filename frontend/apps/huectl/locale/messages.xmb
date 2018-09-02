@@ -22,10 +22,24 @@
 ]>
 <messagebundle>
   <msg id="2821179408673282599"><source>src/app/app.component.html:16</source>Home</msg>
-  <msg id="6318077128670918892"><source>src/app/app.component.html:20</source><source>src/app/app.component.html:24</source><source>src/app/dashboard/dashboard.component.html:8</source>Rooms</msg>
-  <msg id="6492831808763156510"><source>src/app/app.component.html:29</source><source>src/app/dashboard/dashboard.component.html:29</source>Setup</msg>
-  <msg id="3008420115644088420"><source>src/app/app.component.html:33</source><source>src/app/dashboard/dashboard.component.html:35</source>Configuration</msg>
+  <msg id="6318077128670918892"><source>src/app/app.component.html:20</source><source>src/app/dashboard/dashboard.component.html:8</source>Rooms</msg>
+  <msg id="2422482084524537695"><source>src/app/app.component.html:24</source><source>src/app/dashboard/dashboard.component.html:18</source>Light Groups</msg>
+  <msg id="6492831808763156510"><source>src/app/app.component.html:29</source><source>src/app/dashboard/dashboard.component.html:28</source>Setup</msg>
+  <msg id="3008420115644088420"><source>src/app/app.component.html:33</source><source>src/app/dashboard/dashboard.component.html:34</source>Configuration</msg>
   <msg id="5251399164981505238"><source>src/app/dashboard/dashboard.component.html:9,12</source>{VAR_PLURAL_2, plural, =1 {1 of your {VAR_PLURAL, plural, =1 {1 room} other {<ph name="INTERPOLATION"><ex>{{ roomCount.total }}</ex></ph> rooms} } is on.} other {<ph name="INTERPOLATION_1"><ex>{{ roomCount.on}}</ex></ph> of your {VAR_PLURAL_1, plural, =1 {1 room} other {<ph name="INTERPOLATION"><ex>{{ roomCount.total }}</ex></ph> rooms} } are on.} }</msg>
-  <msg id="2422482084524537695"><source>src/app/dashboard/dashboard.component.html:18</source>Light Groups</msg>
-  <msg id="5421570427738225362"><source>src/app/dashboard/dashboard.component.html:20,23</source>{VAR_PLURAL_2, plural, =1 {1 of your {VAR_PLURAL, plural, =1 {1 light group} other {<ph name="INTERPOLATION"><ex>{{ lightGroupCount.total }}</ex></ph> light groups} } is on.} other {<ph name="INTERPOLATION_1"><ex>{{ lightGroupCount.on}}</ex></ph> of your {VAR_PLURAL_1, plural, =1 {1 light group} other {<ph name="INTERPOLATION"><ex>{{ lightGroupCount.total }}</ex></ph> light groups} } are on.} }</msg>
+  <msg id="5421570427738225362"><source>src/app/dashboard/dashboard.component.html:19,22</source>{VAR_PLURAL_2, plural, =1 {1 of your {VAR_PLURAL, plural, =1 {1 light group} other {<ph name="INTERPOLATION"><ex>{{ lightGroupCount.total }}</ex></ph> light groups} } is on.} other {<ph name="INTERPOLATION_1"><ex>{{ lightGroupCount.on}}</ex></ph> of your {VAR_PLURAL_1, plural, =1 {1 light group} other {<ph name="INTERPOLATION"><ex>{{ lightGroupCount.total }}</ex></ph> light groups} } are on.} }</msg>
+  <msg id="4594779332484402036"><source>src/app/setup-dialog/setup-dialog.component.html:5</source><source>src/app/setup-dialog/setup-dialog.component.html:7</source>Bridge IP</msg>
+  <msg id="4086606389696938932"><source>src/app/setup-dialog/setup-dialog.component.html:19</source>Account</msg>
+  <msg id="3368417786821334758"><source>src/app/setup-dialog/setup-dialog.component.html:30</source><source>src/app/configuration-dialog/configuration-dialog.component.html:21</source>Abort</msg>
+  <msg id="3768927257183755959"><source>src/app/setup-dialog/setup-dialog.component.html:31</source><source>src/app/configuration-dialog/configuration-dialog.component.html:22</source>Save</msg>
+  <msg id="518297907399160251"><source>src/app/configuration-dialog/configuration-dialog.component.html:5</source>Room</msg>
+  <msg id="7103588127254721505"><source>src/app/configuration-dialog/configuration-dialog.component.html:14</source>Theme</msg>
+  <msg id="3278589620457344690"><source>src/app/header/header.component.html:2</source>Hue Control</msg>
+  <msg id="d062683b7daa5c2a906cae1476771f87473aa8dd"><source>apps/huectl/src/app/+state/setup.effects.ts:1</source>Searching...</msg>
+  <msg id="6cca2ceccbb3e0346c032008f86bb168c0798491"><source>apps/huectl/src/app/+state/setup.effects.ts:1</source>Searching for available bridges...</msg>
+  <msg id="7c6396f405a6ba73263d2c93d92b55a82c70827f"><source>apps/huectl/src/app/+state/setup.effects.ts:1</source>Waiting...</msg>
+  <msg id="bf3b49b90d06f68f43e54d4b263ed21cc07c272b"><source>apps/huectl/src/app/+state/setup.effects.ts:1</source>Click button on your hue bridge to register.</msg>
+  <msg id="d3dfb1ca49bb491ad804012a2ea1838e9e263cfd"><source>apps/huectl/src/app/groups/groups.component.ts:1</source>Rooms</msg>
+  <msg id="f59b11096ee93df04e281e55bf22a5a2bb27576e"><source>apps/huectl/src/app/groups/groups.component.ts:1</source>Light Groups</msg>
+  <msg id="94516fa213706c67ce5a5b5765681d7fb032033a"><source>libs/loading/src/lib/loading-dialog/loading-dialog.component.ts:1</source>Loading...</msg>
 </messagebundle>

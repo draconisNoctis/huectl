@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material';
 import { SetupDialogComponent } from '../setup-dialog/setup-dialog.component';
 import { concat, NEVER, of } from 'rxjs';
 import { DecreaseLoadingAction, IncreaseLoadingAction } from '@huectl/loading';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 @Injectable()
 export class SetupEffects {
@@ -14,7 +15,7 @@ export class SetupEffects {
     searchBridges$ = this.actions$.pipe(
         ofType(SetupActionTypes.SearchBridges),
         switchMap(() => concat(
-            of(new IncreaseLoadingAction({ title: 'Searching...', description: 'Searching for available bridges...' })),
+            of(new IncreaseLoadingAction({ title: this.i18n('Searching...'), description: this.i18n('Searching for available bridges...') })),
             this.bridgeService.search().pipe(
                 switchMap(result => of(new DecreaseLoadingAction(), new BridgesLoaded(result)))
             )
@@ -38,7 +39,7 @@ export class SetupEffects {
     register$ = this.actions$.pipe(
         ofType(SetupActionTypes.Register),
         switchMap((action : Register) => concat(
-            of(new IncreaseLoadingAction({ title: 'Waiting...', description: 'Click button on your hue bridge to register.' })),
+            of(new IncreaseLoadingAction({ title: this.i18n('Waiting...'), description: this.i18n('Click button on your hue bridge to register.') })),
             this.bridgeService.register(action.payload).pipe(
                 switchMap(account => of(
                     new DecreaseLoadingAction(),
@@ -50,5 +51,6 @@ export class SetupEffects {
 
     constructor(protected readonly actions$: Actions,
                 protected readonly bridgeService : BridgeService,
-                protected readonly dialog : MatDialog) {}
+                protected readonly dialog : MatDialog,
+                protected readonly i18n : I18n) {}
 }

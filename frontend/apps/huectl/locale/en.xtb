@@ -22,4 +22,18 @@
   <translation id="5251399164981505238">{VAR_PLURAL_2, plural, =1 {1 of your {VAR_PLURAL, plural, =1 {1 room} other {<ph name="INTERPOLATION"><ex>{{ roomCount.total }}</ex></ph> rooms} } is on.} other {<ph name="INTERPOLATION_1"><ex>{{ roomCount.on}}</ex></ph> of your {VAR_PLURAL_1, plural, =1 {1 room} other {<ph name="INTERPOLATION"><ex>{{ roomCount.total }}</ex></ph> rooms} } are on.} }</translation>
   <translation id="2422482084524537695">Light Groups</translation>
   <translation id="5421570427738225362">{VAR_PLURAL_2, plural, =1 {1 of your {VAR_PLURAL, plural, =1 {1 light group} other {<ph name="INTERPOLATION"><ex>{{ lightGroupCount.total }}</ex></ph> light groups} } is on.} other {<ph name="INTERPOLATION_1"><ex>{{ lightGroupCount.on}}</ex></ph> of your {VAR_PLURAL_1, plural, =1 {1 light group} other {<ph name="INTERPOLATION"><ex>{{ lightGroupCount.total }}</ex></ph> light groups} } are on.} }</translation>
+  <translation id="4594779332484402036">Bridge IP</translation>
+  <translation id="4086606389696938932">Account</translation>
+  <translation id="3368417786821334758">Abort</translation>
+  <translation id="3768927257183755959">Save</translation>
+  <translation id="518297907399160251">Room</translation>
+  <translation id="7103588127254721505">Theme</translation>
+  <translation id="3278589620457344690">Hue Control</translation>
+  <translation id="d062683b7daa5c2a906cae1476771f87473aa8dd">Searching...</translation>
+  <translation id="6cca2ceccbb3e0346c032008f86bb168c0798491">Searching for available bridges...</translation>
+  <translation id="7c6396f405a6ba73263d2c93d92b55a82c70827f">Waiting...</translation>
+  <translation id="bf3b49b90d06f68f43e54d4b263ed21cc07c272b">Click button on your hue bridge to register.</translation>
+  <translation id="d3dfb1ca49bb491ad804012a2ea1838e9e263cfd">Rooms</translation>
+  <translation id="f59b11096ee93df04e281e55bf22a5a2bb27576e">Light Groups</translation>
+  <translation id="94516fa213706c67ce5a5b5765681d7fb032033a">Loading...</translation>
 </translationbundle>
