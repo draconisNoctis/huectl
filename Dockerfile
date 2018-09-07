@@ -1,4 +1,7 @@
-FROM node:10 as builder
+# node, arm32v7/node
+ARG BASE_IMAGE=node
+
+FROM $BASE_IMAGE:10 as builder
 
 ENV NODE_ENV production
 
@@ -18,7 +21,7 @@ RUN cd backend && yarn run build
 ARG CONFIGURATION=en
 RUN cd frontend && yarn run build --configuration=$CONFIGURATION
 
-FROM node:10
+FROM $BASE_IMAGE:10
 
 ENV NODE_ENV production
 WORKDIR /server
